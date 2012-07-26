@@ -39,11 +39,15 @@ struct IsPlaying
 {
 	int x;
 	int y;
-	bool sattbollen;
-	bool landat;
+	//bool sattbollen;
+	//bool landat;
 	int score;
-	IsPlaying(){sattbollen=false; landat=false; score=0;}
-	golf_ball_position boll;
+	//IsPlaying(){sattbollen=false; landat=false; score=0;}
+	golf_ball_position ball;
+	bool BallInHole;
+	bool BallLanded;
+	IsPlaying(){BallInHole=false; BallLanded=false; score=0;}
+
 };
 
 
@@ -56,3 +60,7 @@ bool CheckXY(float X,float Y);
 bool OutofBounds(golf_ball_position &boll,float tempX,float tempY);
 bool InTerrain(IsPlaying &p);
 void InGoal(IsPlaying & play);
+
+// RISK Functions
+void HitBall(club klubba,golf_ball_position &boll);
+bool Fire(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);

@@ -205,8 +205,8 @@ bool OutofBounds(golf_ball_position &boll,float atX,float atY)
 bool InTerrain(IsPlaying &p)
 {
 
-		int bx=(int)p.boll.x/50 , by=(int)p.boll.y/50;
-		if(p.boll.current_height<=0 && ( yta[bx][by]%50==2) || (yta[bx][by]%50>=4 && yta[bx][by]%50<=8)) // Kollar vart den har landat
+		int bx=(int)p.ball.x/50 , by=(int)p.ball.y/50;
+		if(p.ball.current_height<=0 && ( yta[bx][by]%50==2) || (yta[bx][by]%50>=4 && yta[bx][by]%50<=8)) // Kollar vart den har landat
 	{
 		bool cont=true;			
 
@@ -219,14 +219,14 @@ bool InTerrain(IsPlaying &p)
 					{
 						
 						if(0>(bx+x))
-							p.boll.x=25;
+							p.ball.x=25;
 						else
-							p.boll.x=(((int)p.boll.x/50)*50)+50*x+25;
+							p.ball.x=(((int)p.ball.x/50)*50)+50*x+25;
 
 						if(0>(by+y))
-							p.boll.y=25;
+							p.ball.y=25;
 						else
-							p.boll.y=(((int)p.boll.y/50)*50)+50*y+25;
+							p.ball.y=(((int)p.ball.y/50)*50)+50*y+25;
 						
 						cont=false;
 						p.score++;
@@ -243,9 +243,9 @@ bool InTerrain(IsPlaying &p)
 
 void InGoal(IsPlaying & play)
 {	
-		if(abs((int)play.boll.x-((50*((int)play.boll.x/50))+20))<6 && abs(play.boll.y-((50*((int)play.boll.y/50)+38)))<6)
+		if(abs((int)play.ball.x-((50*((int)play.ball.x/50))+20))<6 && abs(play.ball.y-((50*((int)play.ball.y/50)+38)))<6)
 		{
-			play.sattbollen=true;
+			play.BallInHole=true;
 			snd.Hole();
 			SDL_Delay(200);
 		}

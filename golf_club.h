@@ -9,3 +9,4 @@ struct golf_club
 	golf_club(){}
 	golf_club(float height,float length){this->height = height, this->length=length;}	
 };
+

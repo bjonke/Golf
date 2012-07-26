@@ -18,9 +18,7 @@ using namespace std;
 
 
 int main(int, char**)
-{
-	ofstream fil;
-	
+{	
 	srand((unsigned)time(0));
 
 	char ab[]="level1";
@@ -71,7 +69,7 @@ int main(int, char**)
 
 	for(int i=0; i<4; i++)
 	{
-		isplaying[i].boll=boll[mapnow];		
+		isplaying[i].ball=boll[mapnow];		
 	}
 	
 		while(!bo.done)
@@ -144,9 +142,9 @@ int main(int, char**)
 		}
 		else if(bo.Rmove==false)
 		{			
-			drawcircle((int)isplaying[isp].boll.x-(int)bredd1,(int)isplaying[isp].boll.y-(int)hojd1,3+(int)(isplaying[isp].boll.current_height/200),3+(int)(isplaying[isp].boll.current_height/200)); //bollen
+			drawcircle((int)isplaying[isp].ball.x-(int)bredd1,(int)isplaying[isp].ball.y-(int)hojd1,3+(int)(isplaying[isp].ball.current_height/200),3+(int)(isplaying[isp].ball.current_height/200)); //bollen
 			if(bo.skjut==false && bo.pickClub==false)
-			DrawLine(isplaying[isp].boll.x-bredd1,isplaying[isp].boll.y-hojd1,x2,y2);
+			DrawLine(isplaying[isp].ball.x-bredd1,isplaying[isp].ball.y-hojd1,x2,y2);
 		}
 
 		if( bo.mouseRdown==false && bo.Rmove)
@@ -168,7 +166,7 @@ int main(int, char**)
 			//Draws golf clubs
 			DrawIMGAlpha( surf.golfimage, 640, 10, 153, 278, 1, 1,0,false);
 		}
-		Matare(isplaying[isp].boll);
+		Matare(isplaying[isp].ball);
 		if(bo.pickClub==false && bo.mousedown && bo.skjut==false)
 					{
 						value=Power(bo.power);
@@ -182,13 +180,13 @@ int main(int, char**)
 							value > 1.0f ? temp=2.0f-value : temp=value;
 							if(temp<0.1f)
 								temp=0.1f;
-							isplaying[isp].boll.height *= temp;
-							isplaying[isp].boll.distance *= temp;
+							isplaying[isp].ball.height *= temp;
+							isplaying[isp].ball.distance *= temp;
 						}
 					}
 		
 		ViewPower(value);	
-		viewWind(WPos,isplaying[isp].boll);
+		viewWind(WPos,isplaying[isp].ball);
 		//if(bo.Rmove==false)
 			viewBird();
 	

@@ -2,7 +2,8 @@
 #define PLAYERINPUT
 
 #include "funktioner.h"
-
+#include "Players.h"
+/*
 struct Players
 {
 	bool tournament;
@@ -16,7 +17,7 @@ struct Players
 	int selectMap;
 	Players();
 };
-
+*/
 bool Events(SDL_Surface *img,Players &pl);
 void drawcharacter(int x, int y, int character);
 void drawstring(int x, int y, char *s);

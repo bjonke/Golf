@@ -1,4 +1,5 @@
 #include "playerinput.h"
+#include "Players.h"
 
 void PickPlayers();
 void LandSatt(int &isp);

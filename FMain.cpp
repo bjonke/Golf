@@ -16,16 +16,16 @@ void PickPlayers()
 		if(!players.tournament)
 		{
 			for(int i=0; i<4; i++)						
-				isplaying[i].boll=boll[players.selectMap-1];
+				isplaying[i].ball=boll[players.selectMap-1];
 			mapnow=players.selectMap-1;
 		}
 		else
 		{
 			for(int i=0; i<4; i++)						
-				isplaying[i].boll=boll[0];
+				isplaying[i].ball=boll[0];
 			mapnow=0;
 		}
-		BreddHojd(isplaying[0].boll);				
+		BreddHojd(isplaying[0].ball);				
 		bredd=br[mapnow];
 		hojd=ho[mapnow];
 		yta=tyta[mapnow];
@@ -36,13 +36,13 @@ void PickPlayers()
 
 void LandSatt(int &isp)
 {
-	if(isplaying[isp].landat==true || isplaying[isp].sattbollen )
+	if(isplaying[isp].BallLanded==true || isplaying[isp].BallInHole )
 		{	
 		
-			isplaying[isp].landat=false;
+			isplaying[isp].BallLanded=false;
 			isplaying[isp].score++;
 
-			if(isplaying[isp].sattbollen)
+			if(isplaying[isp].BallInHole)
 				players.antalsomsattden++;
 			if(players.antalsomsattden==players.players)
 			{
@@ -60,7 +60,7 @@ void LandSatt(int &isp)
 					for(int i=0; i<4; i++)
 					{
 					
-						isplaying[i].sattbollen=false;
+						isplaying[i].BallInHole=false;
 						
 					}
 					players= Players();
@@ -77,24 +77,24 @@ void LandSatt(int &isp)
 
 					for(int i=0; i<players.players; i++)
 					{
-						isplaying[i].sattbollen=false;					
-						isplaying[i].boll=boll[mapnow];
+						isplaying[i].BallInHole=false;					
+						isplaying[i].ball=boll[mapnow];
 					}
 					
 
 					isp=0;
-					BreddHojd(isplaying[isp].boll); //Centrerar skärmen
+					BreddHojd(isplaying[isp].ball); //Centrerar skärmen
 				}
 
 				// Byt bana
 			}
 			else
 			{
-				while(isplaying[(++isp)%players.players].sattbollen==true) //Stegar frammåt till nästa spelare som itne satt den
+				while(isplaying[(++isp)%players.players].BallInHole==true) //Stegar frammåt till nästa spelare som itne satt den
 					;
 
 				isp%=players.players;
-				BreddHojd(isplaying[isp].boll);
+				BreddHojd(isplaying[isp].ball);
 			}
 		}
 }
@@ -141,9 +141,9 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 									x2 < ((640+793)/2) ? tx=0 : tx=3;
 									ty = (y2-10)/(279/3);									
 									klubb=klubbor[tx+ty];
-									hitBoll(klubb,isplaying[isp].boll);
+									hitBoll(klubb,isplaying[isp].ball);
 									bo.pickClub=false;		
-									isplaying[isp].boll.current_height=0;
+									isplaying[isp].ball.current_height=0;
 								}
 							}
 														
@@ -158,8 +158,8 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 								if(temp<0.1f)
 								temp=0.1f;
 
-								isplaying[isp].boll.distance*=temp;
-								isplaying[isp].boll.height*=temp;
+								isplaying[isp].ball.distance*=temp;
+								isplaying[isp].ball.height*=temp;
 								//animPlayer(value); //Vill inte animera spelare
 							}
 						}
@@ -197,8 +197,8 @@ static float tempX,tempY,atX,atY;
 	if(set)
 	{
 		
-	atX=  ((x2-(isplaying[isp].boll.x-bredd1))/(sqrtf(powf(abs(x2-(isplaying[isp].boll.x-bredd1)),2)+powf(abs(y2-(isplaying[isp].boll.y-hojd1)),2))));
-	atY=  ((y2-(isplaying[isp].boll.y-hojd1))/(sqrtf(powf(abs(x2-(isplaying[isp].boll.x-bredd1)),2)+powf(abs(y2-(isplaying[isp].boll.y-hojd1)),2))));
+	atX=  ((x2-(isplaying[isp].ball.x-bredd1))/(sqrtf(powf(abs(x2-(isplaying[isp].ball.x-bredd1)),2)+powf(abs(y2-(isplaying[isp].ball.y-hojd1)),2))));
+	atY=  ((y2-(isplaying[isp].ball.y-hojd1))/(sqrtf(powf(abs(x2-(isplaying[isp].ball.x-bredd1)),2)+powf(abs(y2-(isplaying[isp].ball.y-hojd1)),2))));
 		set=false;
 		if(klubb.height == 0) // kollar om det är putter eller annan
 			snd.Putter();
@@ -206,13 +206,13 @@ static float tempX,tempY,atX,atY;
 			snd.Driver();
 	}
 
-		tempX= isplaying[isp].boll.distance*atX;
-		tempY= isplaying[isp].boll.distance*atY;
-		if(isplaying[isp].boll.height>0)
+		tempX= isplaying[isp].ball.distance*atX;
+		tempY= isplaying[isp].ball.distance*atY;
+		if(isplaying[isp].ball.height>0)
 			UseWind(bo.firstshot,windPos,WPos);
 	
-	Direction x=CompPosX(bredd1,isplaying[isp].boll.x+tempX+windPos.x);
-	Direction y=CompPosY(hojd1,isplaying[isp].boll.y+tempY+windPos.y);			
+	Direction x=CompPosX(bredd1,isplaying[isp].ball.x+tempX+windPos.x);
+	Direction y=CompPosY(hojd1,isplaying[isp].ball.y+tempY+windPos.y);			
 	
 
 	if(bredd1+tempX+windPos.x < ((bredd-16)*50) && bredd1+tempX+windPos.x >0)
@@ -223,17 +223,17 @@ static float tempX,tempY,atX,atY;
 		if((tempY+windPos.y > 0 && y==Down) || (tempY+windPos.y < 0 && y==Up))
 			hojd1+= tempY+windPos.y;
 
-	isplaying[isp].boll.x+=tempX;
-	isplaying[isp].boll.x+=windPos.x;
-	isplaying[isp].boll.y+=tempY;
-	isplaying[isp].boll.y+=windPos.y;
+	isplaying[isp].ball.x+=tempX;
+	isplaying[isp].ball.x+=windPos.x;
+	isplaying[isp].ball.y+=tempY;
+	isplaying[isp].ball.y+=windPos.y;
 
 	
-	if(isplaying[isp].boll.x<bredd*50)
-		bo.skjut=Skjut(isplaying[isp],isplaying[isp].boll,windPos,atX,atY,bo.ground);
+	if(isplaying[isp].ball.x<bredd*50)
+		bo.skjut=Skjut(isplaying[isp],isplaying[isp].ball,windPos,atX,atY,bo.ground);
 	if(bo.skjut)
-		bo.skjut=OutofBounds(isplaying[isp].boll,tempX+windPos.x,tempY+windPos.y);
-	if(isplaying[isp].sattbollen)
+		bo.skjut=OutofBounds(isplaying[isp].ball,tempX+windPos.x,tempY+windPos.y);
+	if(isplaying[isp].BallInHole)
 		bo.skjut=false;
 	
 	if(bo.skjut==false)
@@ -244,7 +244,7 @@ static float tempX,tempY,atX,atY;
 			bo.power=true;
 			value=0;
 			bo.firstshot=true;
-			isplaying[isp].landat=true;
+			isplaying[isp].BallLanded=true;
 			UseWind(bo.firstshot,windPos,WPos);
 			
 		}

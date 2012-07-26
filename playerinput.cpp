@@ -345,7 +345,7 @@ void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying
 					for(int i=0; i<4; i++)
 					{
 						//players= Players();
-						isplaying[i].sattbollen=false;
+						isplaying[i].BallInHole=false;
 						
 					}
 					players= Players();
