@@ -1,3 +1,13 @@
+/** 
+* @file sound.cpp 
+* @brief this header file will contain all required 
+* definitions and basic utilities functions.
+*
+* @author RISK
+*
+* @date 2012-07-27
+*/
+
 #include "sound.h"
 Sound snd;
 
@@ -32,7 +42,7 @@ Sound::~Sound()
 	Mix_CloseAudio();
 }
 
-void Sound::Load(std::string file)
+const void Sound::Load(std::string file)
 {
 	if( file.empty() || !Mix_LoadWAV(file.c_str()) )
 	{
@@ -45,13 +55,13 @@ void Sound::Load(std::string file)
 	}
 }
 
-void Sound::Add(Mix_Chunk* soundeffect)
+const void Sound::Add(Mix_Chunk* soundeffect)
 {
 	if(soundeffect)
 	VChunk.push_back(*soundeffect);
 }
 
-void Sound::Play(int id)
+const void Sound::Play(int id)
 {
 	if(VChunk.empty())
 	{
@@ -68,31 +78,31 @@ void Sound::Play(int id)
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
 
-void Sound::Three()
+const void Sound::Three()
 {
 	int channel = Mix_PlayChannel(-1, three, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
-void Sound::Water()
+const void Sound::Water()
 {
 	int channel = Mix_PlayChannel(-1, water, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
-void Sound::Hole()
+const void Sound::Hole()
 {
 	int channel = Mix_PlayChannel(-1, hole, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
-void Sound::Putter()
+const void Sound::Putter()
 {
 	int channel = Mix_PlayChannel(-1, putter, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
-void Sound::Driver()
+const void Sound::Driver()
 {
 	int channel = Mix_PlayChannel(-1, driver, 0);
 	if(channel == -1) 

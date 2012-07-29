@@ -1,3 +1,13 @@
+/** 
+* @file SDL_functions.h 
+* @brief this header file will contain all required 
+* definitions and basic utilities functions.
+*
+* @author RISK
+*
+* @date 2012-07-27
+*/
+
 #include <cstdlib>
 using namespace std;
 #include "SDL.h" // Uint32
@@ -7,6 +17,11 @@ using namespace std;
 #define SCREEN_HEIGHT 600
 #define SCREEN_DEPTH 32
 
+	/**
+	* This method will be used for sound.
+	* @author RISK
+	* @date 2012-07-27
+	*/
 int InitVideo(Uint32 flags = SDL_DOUBLEBUF | SDL_INIT_AUDIO) 
 {
   // Load SDL
@@ -17,8 +32,8 @@ int InitVideo(Uint32 flags = SDL_DOUBLEBUF | SDL_INIT_AUDIO)
   }
   atexit(SDL_Quit);
  
-  surf.screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH, flags);
-  if (surf.screen == NULL) 
+  surf.ScreenSurface = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH, flags);
+  if (surf.ScreenSurface == NULL) 
   {
     fprintf(stderr, "Unable to set video mode: %s\n", SDL_GetError());
     return false;

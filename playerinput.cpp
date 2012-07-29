@@ -1,3 +1,13 @@
+/** 
+* @file playerinput.cpp 
+* @brief this header file will contain all required 
+* definitions and basic utilities functions.
+*
+* @author RISK
+*
+* @date 2012-07-27
+*/
+
 #include "playerinput.h"
 //#include <string>
 //#include <iostream>
@@ -8,7 +18,7 @@
 //extern float bredd1,hojd1;
 
 
-#define PITCH (surf.screen->pitch/4)
+#define PITCH (surf.ScreenSurface->pitch/4)
 
 void drawcharacter(int x, int y, int character)
 {	
@@ -18,27 +28,27 @@ void drawcharacter(int x, int y, int character)
   character -= 33; // our font does not have the first 33 characters.
 
   // Lock surface if needed
-  if (SDL_MUSTLOCK(surf.gFont))
-    if (SDL_LockSurface(surf.gFont) < 0) 
+  if (SDL_MUSTLOCK(surf.FontSurface))
+	  if (SDL_LockSurface(surf.FontSurface) < 0) 
       return;
 
   int i, j;
-  for (i = 0; i < surf.gFont->w; i++)
+  for (i = 0; i < surf.FontSurface->w; i++)
   {
     int screenofs = x + (y + i) * PITCH;
-    int charofs = (i + character * surf.gFont->w) * (surf.gFont->pitch / 4);
-    for (j = 0; j < surf.gFont->w; j++)
+	int charofs = (i + character * surf.FontSurface->w) * (surf.FontSurface->pitch / 4);
+	for (j = 0; j < surf.FontSurface->w; j++)
     {
-      ((unsigned int*)surf.screen->pixels)[screenofs] = 
-        ((unsigned int*)surf.gFont->pixels)[charofs];
+		((unsigned int*)surf.ScreenSurface->pixels)[screenofs] = 
+			((unsigned int*)surf.FontSurface->pixels)[charofs];
       screenofs++;
       charofs++;
     }
   }
 
   // Unlock if needed
-    if (SDL_MUSTLOCK(surf.gFont)) 
-        SDL_UnlockSurface(surf.gFont);
+  if (SDL_MUSTLOCK(surf.FontSurface)) 
+		SDL_UnlockSurface(surf.FontSurface);
 }
 
 
@@ -48,7 +58,7 @@ void drawstring(int x, int y, char *s)
   {
     drawcharacter(x, y, *s);
     s++;
-    x += surf.gFont->w;
+	x += surf.FontSurface->w;
   }
 }
 
@@ -154,7 +164,7 @@ bool Events(SDL_Surface *img,Players &pl)
 				
 				case SDLK_ESCAPE:
 					extern Bools bo;
-					bo.done=true;
+					bo.Done=true;
 					start=true;
 					
 				}
@@ -194,7 +204,7 @@ bool Events(SDL_Surface *img,Players &pl)
 
 	
 }
-	
+/*	
 Players::Players()
 {
 	selectMap=1;
@@ -211,7 +221,7 @@ Players::Players()
 		nameplace[i]=0;
 	}
 }
-
+*/
 
 
 //bollpos parameter
@@ -232,10 +242,22 @@ void BreddHojd(golf_ball_position boll)
 
 void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 {
+	ifstream HighscoreFile("Highscore.txt");
+	char Name[11][20];
+	int Score[11];
+	surf.HighScoreSurface = SDL_LoadBMP("gfx/highscore.bmp");
+	for(int i=0; i<10; i++)
+	{
+		strcpy(Name[i],"NOT SET");
+		Score[i]=999;
+	}
+	
+
 	ifstream infil("highscore.txt");	
 	char namn[11][20];
 	int score[11];
-	SDL_Surface *hscore = SDL_LoadBMP("highscore.bmp");
+	surf.HighScoreSurface = SDL_LoadBMP("gfx/highscore.bmp");
+	//SDL_Surface *hscore = SDL_LoadBMP("gfx/highscore.bmp");
 	
 	for(int i=0; i<10; i++)
 	{
@@ -293,10 +315,12 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 					klar=true;
 			}
 		}
-
-		SDL_FillRect(surf.screen,0,0xFFFFFFFF);
+		
+		SDL_PixelFormat *fmt;
+		fmt=surf.ScreenSurface->format;
+		SDL_FillRect(surf.ScreenSurface,0,SDL_MapRGB(fmt,0,0,0));
 		DrawIMGAlpha(start,337,491,133,64,437,491,255,true);
-		DrawIMGAlpha(hscore,200,40,420,41,0,0,0,false);
+		DrawIMGAlpha(surf.HighScoreSurface,200,40,420,41,0,0,0,false);
 		
 		char chScore[20];
 		for(int i=0; i < 10; ++i)
@@ -308,7 +332,7 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 		
 		
 						//start=true;
-		SDL_Flip(surf.screen);
+		SDL_Flip(surf.ScreenSurface);
 	}
 	ofstream offil("highscore.txt");
 	for(int i=0; i<10; i++)
@@ -316,13 +340,13 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 		offil << namn[i] << " " << score[i] << endl;
 	}
 	offil.close();
-	SDL_FreeSurface(hscore);
+	SDL_FreeSurface(surf.HighScoreSurface);
 }
 
 void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying[])
 {
 	SDL_ShowCursor(SDL_ENABLE);
-	SDL_Surface *img = SDL_LoadBMP("escmeny.bmp");
+	SDL_Surface *img = SDL_LoadBMP("gfx/escmeny.bmp");
 
 	bool done=false;
 	SDL_Event event;
@@ -362,14 +386,14 @@ void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying
 				else if(x>331 && y+y1*3 >208 && x<457 && y< 243+y1*3) //Exit
 				{
 					done=true;
-					bo.done=true;
+					bo.Done=true;
 					
 				}
 			}
 			
 		}
 	
-		SDL_Flip(surf.screen);		
+		SDL_Flip(surf.ScreenSurface);		
 	}
 	SDL_FreeSurface(img);
 	SDL_ShowCursor(SDL_DISABLE);

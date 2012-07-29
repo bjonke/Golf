@@ -1,3 +1,12 @@
+/** 
+* @file main.cpp 
+* @brief this header file will contain all required 
+* definitions and basic utilities functions.
+*
+* @author RISK
+*
+* @date 2012-07-27
+*/
 //#include "skjut.h"
 //#include "funktioner.h"
 //#include "playerinput.h"
@@ -5,6 +14,8 @@
 #include "FMain.h"
 #include "map_loader.h"
 #include "golf_club.h"
+
+using namespace std;
 
 Players players;
 IsPlaying isplaying[4];
@@ -14,7 +25,7 @@ golf_ball_position boll[9];
 Bools bo;
 int mapnow=0;
 
-using namespace std;
+
 
 
 int main(int, char**)
@@ -65,14 +76,14 @@ int main(int, char**)
 	
 	Pos windPos={0,0};
 	Pos WPos;
-	UseWind(bo.firstshot,windPos,WPos);	
+	UseWind(bo.FirstShot,windPos,WPos);	
 
 	for(int i=0; i<4; i++)
 	{
 		isplaying[i].ball=boll[mapnow];		
 	}
 	
-		while(!bo.done)
+		while(!bo.Done)
 		{
 			
 			while(!players.picked)
@@ -82,7 +93,7 @@ int main(int, char**)
 			}
 			//if(bo.done)
 			//	break;	
-			if(bo.pickClub)
+			if(bo.PickGolfClub)
 				SDL_ShowCursor(SDL_ENABLE);
 			else
 				SDL_ShowCursor(SDL_DISABLE);
@@ -91,22 +102,22 @@ int main(int, char**)
 
 		LandSatt(isp);	
 		
-		MainEvents(bo,RHeight,RWidth,x2,y2,klubb,klubbor,isp,value);
+		EventHandler(bo,RHeight,RWidth,x2,y2,klubb,klubbor,isp,value);
 			
 		const int x=55;
 		const int a=670;
 		const int b=725;
 		const int c=30;
 		
-		if(bo.skjut==false)
+		if(bo.FireGolfBall==false)
 			SDL_GetMouseState(&x2,&y2);	
 
 		static int button=1;
 		static bool down=false;
 		static bool set=true;		
-		if(bo.skjut==true)
+		if(bo.FireGolfBall==true)
 		{		
-			MainSkjut(set,x2,y2,isp,klubb,bo,value,windPos,WPos);	
+			FireGolfBall(set,x2,y2,isp,klubb,bo,value,windPos,WPos);	
 		}
 		else
 		{			
@@ -117,16 +128,16 @@ int main(int, char**)
 		for(int i=1; i<18; ++i)
 			for(int j=1; j<17; ++j) //ritar ut allt
 			{
-				if(bo.Rmove)
-					DrawIMGAlpha(surf.image, i*50-50-(int)RWidth%50, j*50-50-(int)RHeight%50, 50, 50,(((50+yta[i-1+((int)RWidth/50)][j-1+(int)RHeight/50])/50)*50-50), (yta[i-1+(int)RWidth/50][j-1+(int)RHeight/50]%50)*50-50,0,false);
+				if(bo.RMove)
+					DrawIMGAlpha(surf.ImageSurface, i*50-50-(int)RWidth%50, j*50-50-(int)RHeight%50, 50, 50,(((50+yta[i-1+((int)RWidth/50)][j-1+(int)RHeight/50])/50)*50-50), (yta[i-1+(int)RWidth/50][j-1+(int)RHeight/50]%50)*50-50,0,false);
 				else
-					DrawIMGAlpha(surf.image, i*50-50-(int)bredd1%50, j*50-50-(int)hojd1%50, 50, 50,(((50+yta[i-1+((int)bredd1/50)][j-1+(int)hojd1/50])/50)*50-50), (yta[i-1+(int)bredd1/50][j-1+(int)hojd1/50]%50)*50-50,0,false);
+					DrawIMGAlpha(surf.ImageSurface, i*50-50-(int)bredd1%50, j*50-50-(int)hojd1%50, 50, 50,(((50+yta[i-1+((int)bredd1/50)][j-1+(int)hojd1/50])/50)*50-50), (yta[i-1+(int)bredd1/50][j-1+(int)hojd1/50]%50)*50-50,0,false);
 			}		
 		
 
 		
 		
-		if(bo.mouseRdown)
+			if(bo.MouseRightDown)
 		{
 			if((x2 > 700 && ((RWidth+20)/50) < (bredd-18)))		
 				RWidth+=20;
@@ -140,41 +151,41 @@ int main(int, char**)
 			if(y2 < 100 && (RHeight-20) > 0)
 				RHeight-=20;	
 		}
-		else if(bo.Rmove==false)
+		else if(bo.RMove==false)
 		{			
 			drawcircle((int)isplaying[isp].ball.x-(int)bredd1,(int)isplaying[isp].ball.y-(int)hojd1,3+(int)(isplaying[isp].ball.current_height/200),3+(int)(isplaying[isp].ball.current_height/200)); //bollen
-			if(bo.skjut==false && bo.pickClub==false)
+			if(bo.FireGolfBall==false && bo.PickGolfClub==false)
 			DrawLine(isplaying[isp].ball.x-bredd1,isplaying[isp].ball.y-hojd1,x2,y2);
 		}
 
-		if( bo.mouseRdown==false && bo.Rmove)
+		if( bo.MouseRightDown==false && bo.RMove)
 		{
 			float x,y;
 			x=30*(RWidth-bredd1)/(sqrtf(powf(abs(RWidth-bredd1),2)+powf(abs(RHeight-hojd1),2)));
 			y=30*(RHeight-hojd1)/(sqrtf(powf(abs(RWidth-bredd1),2)+powf(abs(RHeight-hojd1),2)));
 			if(abs(RWidth-bredd1) < 30)
 				if(abs(RHeight-hojd1) < 30)
-					bo.Rmove=false;
+					bo.RMove=false;
 			
 			
 			RWidth-=x;
 			RHeight-=y;
 		}
 
-		if(bo.skjut==false && bo.pickClub && bo.Rmove==false)
+		if(bo.FireGolfBall==false && bo.PickGolfClub && bo.RMove==false)
 		{
 			//Draws golf clubs
-			DrawIMGAlpha( surf.golfimage, 640, 10, 153, 278, 1, 1,0,false);
+			DrawIMGAlpha( surf.GolfImageSurface, 640, 10, 153, 278, 1, 1,0,false);
 		}
 		Matare(isplaying[isp].ball);
-		if(bo.pickClub==false && bo.mousedown && bo.skjut==false)
+		if(bo.PickGolfClub==false && bo.MouseDown && bo.FireGolfBall==false)
 					{
-						value=Power(bo.power);
+						value=Power(bo.Power);
 						
-						if(bo.power)
+						if(bo.Power)
 						{
-							bo.setvalue=false;
-							bo.skjut=true;							
+							bo.SetValue=false;
+							bo.FireGolfBall=true;							
 
 							float temp;
 							value > 1.0f ? temp=2.0f-value : temp=value;
@@ -191,7 +202,7 @@ int main(int, char**)
 			viewBird();
 	
 			
-		SDL_Flip(surf.screen);	 
+			SDL_Flip(surf.ScreenSurface);	 
 		
 		//cout << SDL_GetTicks()-Starttime << endl;
 

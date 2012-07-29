@@ -1,7 +1,18 @@
-#include "funktioner.h"
-//#include "skjut.h"
+/** 
+* @file funktioner.cpp 
+* @brief this header file will contain all required 
+* definitions and basic utilities functions.
+*
+* @author RISK
+*
+* @date 2012-07-27
+*/
+
 #include <math.h>
 #include <iomanip>
+#include "funktioner.h"
+//#include "skjut.h"
+
 //#define PITCH (screen->pitch/4)
 //extern float bredd1;
 //extern float hojd1;
@@ -10,7 +21,7 @@
 
 void Windrandom(float &x,float &y,float &max)
 {
-		x = rand() % 3;
+	x = rand() % 3;
 	y = rand() % 3;
 	int power = rand() %17;
 	x-=1;
@@ -22,8 +33,6 @@ void Windrandom(float &x,float &y,float &max)
 	else
 		speed=0.707;  // ifall både x och y har vinkel
 	max=((power+5)/10.0)*speed; 
-
-
 }
 
 void UseWind(bool &startMove, Pos &boll, Pos &WPos)
@@ -36,8 +45,6 @@ void UseWind(bool &startMove, Pos &boll, Pos &WPos)
 		boll.x=0;
 		boll.y=0;
 	}
-
-
 	else if(max> abs((int)x) || max > abs((int)y))	//Gör så bollen ökar en bit åt gången
 	{
 		if(x!=0)
@@ -66,7 +73,7 @@ void DrawIMGAlpha(SDL_Surface *img,int x, int y, int w, int h, int x2, int y2, i
   dest2.w = w;
   dest2.h = h;  
     
-  SDL_BlitSurface(img, &dest2, surf.screen, &dest);   
+  SDL_BlitSurface(img, &dest2, surf.ScreenSurface, &dest);   
 }
 
 void DrawLine(float startX,float startY,float stopX,float stopY) // ritar linje
@@ -97,7 +104,7 @@ void DrawLine(float startX,float startY,float stopX,float stopY) // ritar linje
 	for( int i = 0; sqrtf(pow(startX-stX,2)+pow(startY-stY,2)) < 50 && CheckXY(startX,startY) ; i++ )
 	{	
 	
-		((unsigned int*)surf.screen->pixels)[(PITCH*(int)startY + (int)startX)] = 0xFFFFFF;
+		((unsigned int*)surf.ScreenSurface->pixels)[(PITCH*(int)startY + (int)startX)] = 0xFFFFFF;
 		startX += x1;
 		startY += y1;
 	}
@@ -132,7 +139,7 @@ void drawcircle(int x, int y, int r, int c)	 //Ritar bollen
       // note that len may be 0 at this point, 
       // and no pixels get drawn!
       for (j = 0; j < len; j++)
-        ((unsigned int*)surf.screen->pixels)[ofs + j] = 0xFFFFFFFF;
+		  ((unsigned int*)surf.ScreenSurface->pixels)[ofs + j] = 0xFFFFFFFF;
     }
   }
 }
@@ -142,12 +149,12 @@ void Matare(golf_ball_position &boll)
 {	
 	
 
-	SDL_SetColorKey( surf.matare , SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.matare->format, 255,0,0)); 
+	SDL_SetColorKey( surf.MeterSurface , SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.MeterSurface->format, 255,0,0)); 
 	
 	if(boll.x-bredd1 < 120 && boll.y-hojd1 > 400)
-		DrawIMGAlpha(surf.matare, 1, 495, 116, 102, 1, 1,150,true);
+		DrawIMGAlpha(surf.MeterSurface, 1, 495, 116, 102, 1, 1,150,true);
 	else
-		DrawIMGAlpha(surf.matare, 1, 495, 116, 102, 1, 1,255,true);
+		DrawIMGAlpha(surf.MeterSurface, 1, 495, 116, 102, 1, 1,255,true);
 }
 
 
@@ -180,7 +187,7 @@ void ViewPower(float power) //Ritar hur mycket kraft slaget kommer få
 		return ;
 
 	int place=(int)(64.0f*power);
-	DrawIMGAlpha(surf.varde, 47, 583-place, 23, place, 0, 64-place,255,true);
+	DrawIMGAlpha(surf.ValueSurface, 47, 583-place, 23, place, 0, 64-place,255,true);
 }
 
 //Bollpos parameter
@@ -190,9 +197,9 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 	if(boll.x-bredd1 < 120 && boll.y-hojd1 < 200)
 		trans=150;
 	
-	SDL_SetColorKey(surf.vind, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.vind->format, 255,0,0));
+	SDL_SetColorKey(surf.WindSurface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.WindSurface->format, 255,0,0));
 	
-	DrawIMGAlpha(surf.vind, 1, 1, 110, 110, 0, 0,trans,true);
+	DrawIMGAlpha(surf.WindSurface, 1, 1, 110, 110, 0, 0,trans,true);
 	int tempX=0;
 	int tempY=136;
 	int Tbredd=52;
@@ -237,7 +244,7 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 
 	/*tempY=188;
 	tempX=0;*/	
-	DrawIMGAlpha(surf.vind, 35, 38, Tbredd, Tbredd, tempX, tempY,trans,true);
+	DrawIMGAlpha(surf.WindSurface, 35, 38, Tbredd, Tbredd, tempX, tempY,trans,true);
 
 	float styrka=sqrtf(WindPos.x*WindPos.x + WindPos.y*WindPos.y);
 		
@@ -245,12 +252,12 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 	int j=0;
 	for(int i=0; i<5; i++)
 	{
-		DrawIMGAlpha(surf.vind, 38+8*j, 85, 8, 22, 8*((int)(styrka*powf(10,i)) % 10), 115,trans,true);
+		DrawIMGAlpha(surf.WindSurface, 38+8*j, 85, 8, 22, 8*((int)(styrka*powf(10,i)) % 10), 115,trans,true);
 
 		if(i==0)
 		{	 
 			j++;
-			DrawIMGAlpha(surf.vind, 38+8*j, 85, 8, 22, 8*10, 115,trans,true);
+			DrawIMGAlpha(surf.WindSurface, 38+8*j, 85, 8, 22, 8*10, 115,trans,true);
 			
 		}
 		j++;
@@ -268,7 +275,7 @@ void viewBird() //Ritar fågel
 	static int Birds_pos_y;
 	static bool flying=false;
 	
-	SDL_SetColorKey(surf.bird, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.bird->format, 255,255,255));
+	SDL_SetColorKey(surf.BirdSurface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.BirdSurface->format, 255,255,255));
 
 	if( Birds_pos_x > 800 )
 	{
@@ -291,7 +298,7 @@ void viewBird() //Ritar fågel
 		Birds_pos_x += 2;
 
 		Birds_pos_y % 2 == 0 ? Birds_pos_y += rand()%2 : Birds_pos_y -=  rand()%2;
-		DrawIMGAlpha(surf.bird,Birds_pos_x,Birds_pos_y,80,150,0,0,0,false);
+		DrawIMGAlpha(surf.BirdSurface,Birds_pos_x,Birds_pos_y,80,150,0,0,0,false);
 	}
 /*
 	if(flying==false)
@@ -329,7 +336,7 @@ void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
 	while(!done)
 	{
 		
-		DrawIMGAlpha(surf.golfer,360,530,62,69,190+(63*(int)(tempval*4)),1,0,false);
+		DrawIMGAlpha(surf.GolferSurface,360,530,62,69,190+(63*(int)(tempval*4)),1,0,false);
 
 		if(vanster)
 		{
@@ -346,7 +353,7 @@ void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
 				tempval+=0.25f;
 		}
 		SDL_Delay(80);
-		SDL_Flip(surf.screen);
+		SDL_Flip(surf.ScreenSurface);
 	}
 }
 			

@@ -1,4 +1,4 @@
-Exodus
+Golf
 ======
 
-Jagged alliance like game
+SDL Golfing fun

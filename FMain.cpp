@@ -1,3 +1,13 @@
+/** 
+* @file FMain.cpp 
+* @brief this header file will contain all required 
+* definitions and basic utilities functions.
+*
+* @author RISK
+*
+* @date 2012-07-27
+*/
+
 #include "FMain.h"
 extern Players players;
 extern IsPlaying isplaying[4];
@@ -8,9 +18,9 @@ extern int mapnow;
 
 void PickPlayers()
 {
-	DrawIMGAlpha(surf.initPlayer,0,0,800,600,0,0,0,false);
-	players.picked=Events(surf.initPlayer,players);				
-	SDL_Flip(surf.screen);	
+	DrawIMGAlpha(surf.InitPlayerSurface,0,0,800,600,0,0,0,false);
+	players.picked=Events(surf.InitPlayerSurface,players);				
+	SDL_Flip(surf.ScreenSurface);	
 	if(players.picked)
 	{
 		if(!players.tournament)
@@ -54,7 +64,7 @@ void LandSatt(int &isp)
 					if(players.tournament)
 					{
 						players.finished=true; //Gör det möjligt att komma in på highscore
-						Highscore(surf.initPlayer,isplaying,players);						
+						Highscore(surf.InitPlayerSurface,isplaying,players);						
 					}
 					
 					for(int i=0; i<4; i++)
@@ -108,17 +118,17 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 			switch(event.type)
 			{
 			case SDL_MOUSEBUTTONDOWN:
-				if(event.button.button == SDL_BUTTON_LEFT && bo.skjut==false)
+				if(event.button.button == SDL_BUTTON_LEFT && bo.FireGolfBall==false)
 				{					
-					bo.mousedown=true;
+					bo.MouseDown=true;
 				}
 
 				else if(event.button.button == SDL_BUTTON_RIGHT)
 				{
-					bo.mouseRdown=true;
-					if(bo.Rmove==false) //Koppiterar nuvarande positionerna så man kan röra sig fritt
+					bo.MouseRightDown=true;
+					if(bo.RMove==false) //Koppiterar nuvarande positionerna så man kan röra sig fritt
 					{
-						bo.Rmove=true;
+						bo.RMove=true;
 						Rhojd=hojd1;
 						Rbredd=bredd1;
 					}
@@ -128,12 +138,12 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 				break;
 
 			case SDL_MOUSEBUTTONUP:
-					if(event.button.button == SDL_BUTTON_LEFT && bo.mousedown==true)
+				if(event.button.button == SDL_BUTTON_LEFT && bo.MouseDown==true)
 					{						
-						bo.mousedown=false;
-						if(bo.Rmove==false)
+						bo.MouseDown=false;
+						if(bo.RMove==false)
 						{
-							if(bo.pickClub)
+							if(bo.PickGolfClub)
 							{
 								if((x2>640 && x2<793 && y2>10 && y2 <288 )) // Kollar om den är över klubb bilden
 								{
@@ -142,16 +152,16 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 									ty = (y2-10)/(279/3);									
 									klubb=klubbor[tx+ty];
 									hitBoll(klubb,isplaying[isp].ball);
-									bo.pickClub=false;		
+									bo.PickGolfClub=false;		
 									isplaying[isp].ball.current_height=0;
 								}
 							}
 														
 									
-							else if(bo.setvalue)							
+							else if(bo.SetValue)							
 							{					
-								bo.setvalue=false;								
-								bo.skjut=true;
+								bo.SetValue=false;								
+								bo.FireGolfBall=true;
 					
 								float temp;
 								value > 1.0f ? temp=2.0f-value : temp=value;
@@ -165,8 +175,8 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 						}
 					}
 
-					if( event.button.button == SDL_BUTTON_RIGHT && bo.mouseRdown==true)
-						bo.mouseRdown=false;
+					if( event.button.button == SDL_BUTTON_RIGHT && bo.MouseRightDown==true)
+						bo.MouseRightDown=false;
 					break;
 
 			case SDL_KEYDOWN:
@@ -176,12 +186,12 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 				
 				case SDLK_ESCAPE:
 				
-					EscMeny(surf.initPlayer, bo, players, isplaying);
+					EscMeny(surf.InitPlayerSurface, bo, players, isplaying);
 					break;
 				
 			
 				case SDL_QUIT:
-					bo.done=true;					
+					bo.Done=true;					
 				break;
 			}
 		}
@@ -192,8 +202,8 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 
 void MainSkjut(bool &set,int &x2,int &y2,int &isp,club &klubb,Bools &bo, float &value,Pos &windPos,Pos &WPos)
 {
+	static float tempX,tempY,atX,atY;
 
-static float tempX,tempY,atX,atY;
 	if(set)
 	{
 		
@@ -209,7 +219,7 @@ static float tempX,tempY,atX,atY;
 		tempX= isplaying[isp].ball.distance*atX;
 		tempY= isplaying[isp].ball.distance*atY;
 		if(isplaying[isp].ball.height>0)
-			UseWind(bo.firstshot,windPos,WPos);
+			UseWind(bo.FirstShot,windPos,WPos);
 	
 	Direction x=CompPosX(bredd1,isplaying[isp].ball.x+tempX+windPos.x);
 	Direction y=CompPosY(hojd1,isplaying[isp].ball.y+tempY+windPos.y);			
@@ -230,22 +240,171 @@ static float tempX,tempY,atX,atY;
 
 	
 	if(isplaying[isp].ball.x<bredd*50)
-		bo.skjut=Skjut(isplaying[isp],isplaying[isp].ball,windPos,atX,atY,bo.ground);
-	if(bo.skjut)
-		bo.skjut=OutofBounds(isplaying[isp].ball,tempX+windPos.x,tempY+windPos.y);
+		bo.FireGolfBall=Skjut(isplaying[isp],isplaying[isp].ball,windPos,atX,atY,bo.Ground);
+	if(bo.FireGolfBall)
+		bo.FireGolfBall=OutofBounds(isplaying[isp].ball,tempX+windPos.x,tempY+windPos.y);
 	if(isplaying[isp].BallInHole)
-		bo.skjut=false;
+		bo.FireGolfBall=false;
 	
-	if(bo.skjut==false)
+	if(bo.FireGolfBall==false)
 		{
-			bo.pickClub=true;
-			bo.ground=true;
-			bo.setvalue=true;
-			bo.power=true;
+			bo.PickGolfClub=true;
+			bo.Ground=true;
+			bo.SetValue=true;
+			bo.Power=true;
 			value=0;
-			bo.firstshot=true;
+			bo.FirstShot=true;
 			isplaying[isp].BallLanded=true;
-			UseWind(bo.firstshot,windPos,WPos);
+			UseWind(bo.FirstShot,windPos,WPos);
 			
+		}
+}
+
+void FireGolfBall(bool &set,int &x2,int &y2,int &isp,club &golfclub,Bools &bo, float &value,Pos &windPos,Pos &WPos)
+{
+	static float tempX,tempY,atX,atY;
+
+	if(set)
+	{
+		
+	atX=  ((x2-(isplaying[isp].ball.x-bredd1))/(sqrtf(powf(abs(x2-(isplaying[isp].ball.x-bredd1)),2)+powf(abs(y2-(isplaying[isp].ball.y-hojd1)),2))));
+	atY=  ((y2-(isplaying[isp].ball.y-hojd1))/(sqrtf(powf(abs(x2-(isplaying[isp].ball.x-bredd1)),2)+powf(abs(y2-(isplaying[isp].ball.y-hojd1)),2))));
+		set=false;
+		if(golfclub.height == 0) // kollar om det är putter eller annan
+			snd.Putter();
+		else
+			snd.Driver();
+	}
+
+		tempX= isplaying[isp].ball.distance*atX;
+		tempY= isplaying[isp].ball.distance*atY;
+		if(isplaying[isp].ball.height>0)
+			UseWind(bo.FirstShot,windPos,WPos);
+	
+	Direction x=CompPosX(bredd1,isplaying[isp].ball.x+tempX+windPos.x);
+	Direction y=CompPosY(hojd1,isplaying[isp].ball.y+tempY+windPos.y);			
+	
+
+	if(bredd1+tempX+windPos.x < ((bredd-16)*50) && bredd1+tempX+windPos.x >0)
+		if((tempX+windPos.x > 0 && x==Right) || (tempX+windPos.x < 0 && x==Left) )
+			bredd1+= tempX+windPos.x;
+	
+	if(hojd1+tempY+windPos.y < ((hojd-12)*50) && hojd1+tempY+windPos.y > 0 )
+		if((tempY+windPos.y > 0 && y==Down) || (tempY+windPos.y < 0 && y==Up))
+			hojd1+= tempY+windPos.y;
+
+	isplaying[isp].ball.x+=tempX;
+	isplaying[isp].ball.x+=windPos.x;
+	isplaying[isp].ball.y+=tempY;
+	isplaying[isp].ball.y+=windPos.y;
+
+	
+	if(isplaying[isp].ball.x<bredd*50)
+		bo.FireGolfBall=Skjut(isplaying[isp],isplaying[isp].ball,windPos,atX,atY,bo.Ground);
+	if(bo.FireGolfBall)
+		bo.FireGolfBall=OutofBounds(isplaying[isp].ball,tempX+windPos.x,tempY+windPos.y);
+	if(isplaying[isp].BallInHole)
+		bo.FireGolfBall=false;
+	
+	if(bo.FireGolfBall==false)
+		{
+			bo.PickGolfClub=true;
+			bo.Ground=true;
+			bo.SetValue=true;
+			bo.Power=true;
+			value=0;
+			bo.FirstShot=true;
+			isplaying[isp].BallLanded=true;
+			UseWind(bo.FirstShot,windPos,WPos);
+			
+		}
+}
+
+void EventHandler(Bools &bo,float &RHeight,float &RWidth,int x2,int y2,club &golfclub,club golfclubs[],int &isp,float &value)
+{
+	SDL_Event event;
+
+	while(SDL_PollEvent(&event))
+		{
+			switch(event.type)
+			{
+			case SDL_MOUSEBUTTONDOWN:
+				if(event.button.button == SDL_BUTTON_LEFT && bo.FireGolfBall==false)
+				{					
+					bo.MouseDown=true;
+				}
+
+				else if(event.button.button == SDL_BUTTON_RIGHT)
+				{
+					bo.MouseRightDown=true;
+					if(bo.RMove==false) //Koppiterar nuvarande positionerna så man kan röra sig fritt
+					{
+						bo.RMove=true;
+						RHeight=hojd1;
+						RWidth=bredd1;
+					}
+				}
+
+
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				if(event.button.button == SDL_BUTTON_LEFT && bo.MouseDown==true)
+					{						
+						bo.MouseDown=false;
+						if(bo.RMove==false)
+						{
+							if(bo.PickGolfClub)
+							{
+								if((x2>640 && x2<793 && y2>10 && y2 <288 )) // Kollar om den är över klubb bilden
+								{
+									int tx,ty;
+									x2 < ((640+793)/2) ? tx=0 : tx=3;
+									ty = (y2-10)/(279/3);									
+									golfclub=golfclubs[tx+ty];
+									hitBoll(golfclub,isplaying[isp].ball);
+									bo.PickGolfClub=false;		
+									isplaying[isp].ball.current_height=0;
+								}
+							}
+														
+									
+							else if(bo.SetValue)							
+							{					
+								bo.SetValue=false;								
+								bo.FireGolfBall=true;
+					
+								float temp;
+								value > 1.0f ? temp=2.0f-value : temp=value;
+								if(temp<0.1f)
+								temp=0.1f;
+
+								isplaying[isp].ball.distance*=temp;
+								isplaying[isp].ball.height*=temp;
+								//animPlayer(value); //Vill inte animera spelare
+							}
+						}
+					}
+
+					if( event.button.button == SDL_BUTTON_RIGHT && bo.MouseRightDown==true)
+						bo.MouseRightDown=false;
+					break;
+
+			case SDL_KEYDOWN:
+				
+				switch(event.key.keysym.sym)
+				{
+				
+				case SDLK_ESCAPE:
+				
+					EscMeny(surf.InitPlayerSurface, bo, players, isplaying);
+					break;
+				
+			
+				case SDL_QUIT:
+					bo.Done=true;					
+				break;
+			}
+		}
 		}
 }
