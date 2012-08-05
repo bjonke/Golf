@@ -10,7 +10,7 @@
 
 #include <math.h>
 #include <iomanip>
-#include "funktioner.h"
+#include "Functions.h"
 //#include "skjut.h"
 
 //#define PITCH (screen->pitch/4)
@@ -75,6 +75,14 @@ void DrawIMGAlpha(SDL_Surface *img,int x, int y, int w, int h, int x2, int y2, i
     
   SDL_BlitSurface(img, &dest2, surf.ScreenSurface, &dest);   
 }
+
+/** 
+* @brief this function will draw the line that the user navigates where to shoot the ball 
+* 
+* @author RISK
+*
+* @date 2012-07-27
+*/
 
 void DrawLine(float startX,float startY,float stopX,float stopY) // ritar linje
 

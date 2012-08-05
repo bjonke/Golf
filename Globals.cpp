@@ -10,7 +10,6 @@
 
 #include "Globals.h"
 
-
 float hojd1=0;
 float bredd1=0;
 int bredd;
@@ -23,6 +22,18 @@ int ***tyta;
 
 Surf::Surf()
 {
+	ScreenSurface = 0;
+	ImageSurface = 0;
+	GolfImageSurface = 0;
+	InitPlayerSurface = 0;
+	MeterSurface = 0;
+	BirdSurface = 0;
+	GolferSurface = 0;
+	ValueSurface = 0;
+	WindSurface = 0;
+	FontSurface = 0;
+	HighScoreSurface = 0;
+
 	
 	ScreenSurface = SDL_SetVideoMode(800,600,32,SDL_SWSURFACE |SDL_DOUBLEBUF  );
 	
@@ -77,7 +88,9 @@ Surf::~Surf()
 	SDL_FreeSurface(WindSurface);
 	SDL_FreeSurface(FontSurface);
 
-	for(int i=0; i<9; i++)
+// End game crashing problem here
+/*
+	for(int i=0; i<hojd; i++)
 	{
 		for(int j=0; j< bredd; j++)
 		{			
@@ -85,8 +98,7 @@ Surf::~Surf()
 		}
 		delete [] tyta[i];
 	}
-
-
+*/
 }
 
 Bools::Bools()

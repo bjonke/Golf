@@ -52,12 +52,12 @@ struct golf_ball_position
 * @author RISK
 * @date 2012-07-27
 */
-struct club
+struct GolfClub
 {
 	float height;
 	float distance;
-	club() {}
-	club(float height,float distance){this->height= height, this->distance=distance;}
+	GolfClub() {}
+	GolfClub(float height,float distance){this->height= height, this->distance=distance;}
 };
 
 /**
@@ -77,7 +77,6 @@ struct IsPlaying
 	bool BallInHole;
 	bool BallLanded;
 	IsPlaying(){BallInHole=false; BallLanded=false; score=0;}
-
 };
 
 /**
@@ -85,7 +84,7 @@ struct IsPlaying
 * @author RISK
 * @date 2012-07-27
 */
-void hitBoll(club klubba,golf_ball_position &boll);
+void hitBoll(GolfClub klubba,golf_ball_position &boll);
 
 /**
 * This method will be used for Shooting the golf ball.
@@ -141,7 +140,7 @@ void InGoal(IsPlaying & play);
 * @author RISK
 * @date 2012-07-27
 */
-void HitBall(club klubba,golf_ball_position &boll);
+void HitBall(GolfClub klubba,golf_ball_position &boll);
 
 /**
 * This method will be used for making the golf ball fly away after hitting it.

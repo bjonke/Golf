@@ -80,30 +80,35 @@ const void Sound::Play(int id)
 
 const void Sound::Three()
 {
+	cout << "Trees are green and the red roses too...." << endl;
 	int channel = Mix_PlayChannel(-1, three, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
 const void Sound::Water()
 {
+	cout << "Water is wet and the rain too...." << endl;
 	int channel = Mix_PlayChannel(-1, water, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
 const void Sound::Hole()
 {
+	cout << "ohhh yeaaa you pocketed the ball...." << endl;
 	int channel = Mix_PlayChannel(-1, hole, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
 const void Sound::Putter()
 {
+	cout << "Using my little putter here...." << endl;
 	int channel = Mix_PlayChannel(-1, putter, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
 }
 const void Sound::Driver()
 {
+	cout << "Hey! was that my driver making noise???" << endl;
 	int channel = Mix_PlayChannel(-1, driver, 0);
 	if(channel == -1) 
 		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());

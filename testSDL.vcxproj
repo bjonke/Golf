@@ -90,14 +90,14 @@
     <ClCompile Include="Players.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="FMain.cpp" />
-    <ClCompile Include="funktioner.cpp" />
+    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="playerinput.cpp" />
     <ClCompile Include="skjut.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FMain.h" />
-    <ClInclude Include="funktioner.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="golf_club.h" />
     <ClInclude Include="item.h" />

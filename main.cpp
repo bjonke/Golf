@@ -15,72 +15,89 @@
 #include "map_loader.h"
 #include "golf_club.h"
 
-using namespace std;
+//using namespace std;
+
+#define GOLFCOURT_HOLE 9
 
 Players players;
 IsPlaying isplaying[4];
-int br[9],ho[9];
-//bollpos parameter
-golf_ball_position boll[9];
+//int br[9],ho[9];
+golf_ball_position GolfBallPosition[GOLFCOURT_HOLE];
+int GolfCourseWidth[GOLFCOURT_HOLE],GolfCourseHeight[GOLFCOURT_HOLE];
 Bools bo;
-int mapnow=0;
-
-
-
+int ActiveGolfCourse = 0;
+//int mapnow=0;
 
 int main(int, char**)
 {	
+	cout << "Randomizing things..." << endl;
 	srand((unsigned)time(0));
+
+	//InitVideo();
+	//SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+	// Initializes the video subsystem
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+		cerr << "Unable to init SDL: " << SDL_GetError() << endl;
+		exit(1);
+    }
+
+	char GolfCourtFile[] = "golfcourts/level1";
+	vector<vector<int> > array2D;
+
+	// Set up sizes. (HEIGHT x WIDTH)
+	array2D.resize(90);
+	for (int i = 0; i < 90; ++i)
+	array2D[i].resize(90);
+
+	// Put some values in
+	array2D[1][2] = 6;
+	array2D[3][1] = 5;
 
 	char ab[]="level1";
 	
-	tyta = new int **[9];
-	for(int k=0; k<9; k++)
+	tyta = new int **[GOLFCOURT_HOLE];
+	for(int CurrentHole=0; CurrentHole < GOLFCOURT_HOLE; CurrentHole++)
 	{	
 		ifstream infil;
-		ab[5]='1'+k;
+		ab[5]='1'+CurrentHole;
 		infil.open(ab);
-		infil >> br[k] >> ho[k] >> boll[k].x >> boll[k].y;				
+		infil >> GolfCourseWidth[CurrentHole] >> GolfCourseHeight[CurrentHole] >> GolfBallPosition[CurrentHole].x >> GolfBallPosition[CurrentHole].y;				
 	
-		tyta[k]= new int *[br[k]];
-		for(int i=0; i<br[k]; ++i)
-			tyta[k][i]= new int[ho[k]];
+		tyta[CurrentHole]= new int *[GolfCourseWidth[CurrentHole]];
+		for(int i=0; i<GolfCourseWidth[CurrentHole]; ++i)
+			tyta[CurrentHole][i]= new int[GolfCourseHeight[CurrentHole]];
 
-		for(int i=0; i<br[k]; i++)
-			for(int j=0; j<ho[k]; j++)
-				infil >> tyta[k][i][j];
-
+		for(int i=0; i<GolfCourseWidth[CurrentHole]; i++)
+			for(int j=0; j<GolfCourseHeight[CurrentHole]; j++)
+			{
+				infil >> tyta[CurrentHole][i][j];
+			}
 		infil.close();
 	}
 
-	InitVideo();
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-
-	Sound Sound_test;
-	Sound_test.Load("sounds\\three.wav");
-	Sound_test.Play(0);
 	float value=0;	
 	int x2=0,y2=0; //mouse related
 	int isp=0;
 	
 	
-	club klubb;
-	club klubbor[]={club(6.0f,8.0f),
-		club(6.0f,7.0f),
-		club(9.0f,3.0f),
-		club(6.0f,9.0f),
-		club(11.0f,2.2f),
-		club(0.0f,13.0f)};
+	GolfClub Club;
+	GolfClub Clubs[]={GolfClub(6.0f,8.0f),
+		GolfClub(6.0f,7.0f),
+		GolfClub(9.0f,3.0f),
+		GolfClub(6.0f,9.0f),
+		GolfClub(11.0f,2.2f),
+		GolfClub(0.0f,13.0f)};
 	
 	float RHeight,RWidth;
 	
 	Pos windPos={0,0};
-	Pos WPos;
+	Pos WPos={0,0};
+
 	UseWind(bo.FirstShot,windPos,WPos);	
 
 	for(int i=0; i<4; i++)
 	{
-		isplaying[i].ball=boll[mapnow];		
+		isplaying[i].ball=GolfBallPosition[ActiveGolfCourse];		
 	}
 	
 		while(!bo.Done)
@@ -102,7 +119,7 @@ int main(int, char**)
 
 		LandSatt(isp);	
 		
-		EventHandler(bo,RHeight,RWidth,x2,y2,klubb,klubbor,isp,value);
+		EventHandler(bo,RHeight,RWidth,x2,y2,Club,Clubs,isp,value);
 			
 		const int x=55;
 		const int a=670;
@@ -117,7 +134,7 @@ int main(int, char**)
 		static bool set=true;		
 		if(bo.FireGolfBall==true)
 		{		
-			FireGolfBall(set,x2,y2,isp,klubb,bo,value,windPos,WPos);	
+			FireGolfBall(set,x2,y2,isp,Club,bo,value,windPos,WPos);	
 		}
 		else
 		{			

@@ -11,7 +11,7 @@
 #ifndef PLAYERINPUT
 #define PLAYERINPUT
 
-#include "funktioner.h"
+#include "Functions.h"
 #include "Players.h"
 /*
 struct Players

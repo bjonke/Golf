@@ -143,7 +143,7 @@ bool Skjut(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,floa
 	return false;
 }
 
-void hitBoll(club klubba,golf_ball_position &boll) //initierar bollens möjligheter
+void hitBoll(GolfClub klubba,golf_ball_position &boll) //initierar bollens möjligheter
 {
 	boll.height = klubba.height;
 	boll.distance = klubba.distance;		

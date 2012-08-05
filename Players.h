@@ -11,7 +11,7 @@
 #ifndef PLAYERS
 #define PLAYERS
 
-#include "funktioner.h"
+#include "Functions.h"
 	/**
 	* This method will be used for sound.
 	* @author RISK

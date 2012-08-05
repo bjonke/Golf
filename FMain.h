@@ -34,14 +34,14 @@ void LandSatt(int &isp);
 * @author RISK
 * @date 2012-07-27
 */
-void MainEvents(Bools &bo,float &Rhojd,float &RBredd,int x2,int y2,club &klubb,club klubbor[],int &isp,float &value);
+void MainEvents(Bools &bo,float &Rhojd,float &RBredd,int x2,int y2,GolfClub &klubb,GolfClub klubbor[],int &isp,float &value);
 
 /**
 * This method will be used for Shooting.
 * @author RISK
 * @date 2012-07-27
 */
-void MainSkjut(bool &set,int &x2,int &y2,int &isp,club &klubb,Bools &bo, float &value,Pos &windPos,Pos &WPos);
+void MainSkjut(bool &set,int &x2,int &y2,int &isp,GolfClub &klubb,Bools &bo, float &value,Pos &windPos,Pos &WPos);
 
 /**
 * This method will be used for Shooting.
@@ -49,13 +49,13 @@ void MainSkjut(bool &set,int &x2,int &y2,int &isp,club &klubb,Bools &bo, float &
 * @brief This method will be used for Shooting.
 * @date 2012-07-27
 */
-void FireGolfBall(bool &set,int &x2,int &y2,int &isp,club &golfclub,Bools &bo, float &value,Pos &windPos,Pos &WPos);
+void FireGolfBall(bool &set,int &x2,int &y2,int &isp,GolfClub &golfclub,Bools &bo, float &value,Pos &windPos,Pos &WPos);
 
 /**
 * This method will be used for handling events.
 * @author RISK
 * @date 2012-07-27
 */
-void EventHandler(Bools &bo,float &RHeight,float &RWidth,int x2,int y2,club &golfclub,club golfclubs[],int &isp,float &value);
+void EventHandler(Bools &bo,float &RHeight,float &RWidth,int x2,int y2,GolfClub &golfclub,GolfClub golfclubs[],int &isp,float &value);
 
 #endif

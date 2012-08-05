@@ -11,11 +11,13 @@
 #include "FMain.h"
 extern Players players;
 extern IsPlaying isplaying[4];
-extern int br[9];
-extern int ho[9];
-extern golf_ball_position boll[9];
-extern int mapnow;
-
+//extern int br[9];
+//extern int ho[9];
+extern int GolfCourseHeight[9];
+extern int GolfCourseWidth[9];
+extern golf_ball_position GolfBallPosition[9];
+//extern int mapnow;
+extern int ActiveGolfCourse;
 void PickPlayers()
 {
 	DrawIMGAlpha(surf.InitPlayerSurface,0,0,800,600,0,0,0,false);
@@ -26,20 +28,20 @@ void PickPlayers()
 		if(!players.tournament)
 		{
 			for(int i=0; i<4; i++)						
-				isplaying[i].ball=boll[players.selectMap-1];
-			mapnow=players.selectMap-1;
+				isplaying[i].ball=GolfBallPosition[players.selectMap-1];
+			ActiveGolfCourse=players.selectMap-1;
 		}
 		else
 		{
 			for(int i=0; i<4; i++)						
-				isplaying[i].ball=boll[0];
-			mapnow=0;
+				isplaying[i].ball=GolfBallPosition[0];
+			ActiveGolfCourse=0;
 		}
 		BreddHojd(isplaying[0].ball);				
-		bredd=br[mapnow];
-		hojd=ho[mapnow];
-		yta=tyta[mapnow];
-		BreddHojd(boll[mapnow]);
+		bredd=GolfCourseWidth[ActiveGolfCourse];
+		hojd=GolfCourseHeight[ActiveGolfCourse];
+		yta=tyta[ActiveGolfCourse];
+		BreddHojd(GolfBallPosition[ActiveGolfCourse]);
 
 	}
 }
@@ -56,9 +58,9 @@ void LandSatt(int &isp)
 				players.antalsomsattden++;
 			if(players.antalsomsattden==players.players)
 			{
-				++mapnow;
+				++ActiveGolfCourse;
 				
-				if(mapnow==9 || players.tournament==false)
+				if(ActiveGolfCourse==9 || players.tournament==false)
 				{
 					
 					if(players.tournament)
@@ -78,17 +80,17 @@ void LandSatt(int &isp)
 				
 				else
 				{
-					bredd=br[mapnow];
-					hojd=ho[mapnow];
+					bredd=GolfCourseWidth[ActiveGolfCourse];
+					hojd=GolfCourseHeight[ActiveGolfCourse];
 
-					yta=tyta[mapnow];
+					yta=tyta[ActiveGolfCourse];
 					players.antalsomsattden=0;
 					
 
 					for(int i=0; i<players.players; i++)
 					{
 						isplaying[i].BallInHole=false;					
-						isplaying[i].ball=boll[mapnow];
+						isplaying[i].ball=GolfBallPosition[ActiveGolfCourse];
 					}
 					
 
@@ -109,7 +111,7 @@ void LandSatt(int &isp)
 		}
 }
 
-void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,club klubbor[],int &isp,float &value)
+void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,GolfClub &klubb,GolfClub klubbor[],int &isp,float &value)
 {
 	SDL_Event event;
 
@@ -200,7 +202,7 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,club &klubb,c
 
 
 
-void MainSkjut(bool &set,int &x2,int &y2,int &isp,club &klubb,Bools &bo, float &value,Pos &windPos,Pos &WPos)
+void MainSkjut(bool &set,int &x2,int &y2,int &isp,GolfClub &klubb,Bools &bo, float &value,Pos &windPos,Pos &WPos)
 {
 	static float tempX,tempY,atX,atY;
 
@@ -260,7 +262,7 @@ void MainSkjut(bool &set,int &x2,int &y2,int &isp,club &klubb,Bools &bo, float &
 		}
 }
 
-void FireGolfBall(bool &set,int &x2,int &y2,int &isp,club &golfclub,Bools &bo, float &value,Pos &windPos,Pos &WPos)
+void FireGolfBall(bool &set,int &x2,int &y2,int &isp,GolfClub &golfclub,Bools &bo, float &value,Pos &windPos,Pos &WPos)
 {
 	static float tempX,tempY,atX,atY;
 
@@ -320,7 +322,7 @@ void FireGolfBall(bool &set,int &x2,int &y2,int &isp,club &golfclub,Bools &bo, f
 		}
 }
 
-void EventHandler(Bools &bo,float &RHeight,float &RWidth,int x2,int y2,club &golfclub,club golfclubs[],int &isp,float &value)
+void EventHandler(Bools &bo,float &RHeight,float &RWidth,int x2,int y2,GolfClub &golfclub,GolfClub golfclubs[],int &isp,float &value)
 {
 	SDL_Event event;
 

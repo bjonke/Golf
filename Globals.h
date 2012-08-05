@@ -62,13 +62,12 @@ struct Surf
 	SDL_Surface* GolfImageSurface;
 	SDL_Surface* InitPlayerSurface;
 	SDL_Surface* MeterSurface;
-	SDL_Surface *BirdSurface;
-	SDL_Surface *GolferSurface;
+	SDL_Surface* BirdSurface;
+	SDL_Surface* GolferSurface;
 	SDL_Surface* ValueSurface;
 	SDL_Surface* WindSurface;
-	SDL_Surface *FontSurface;
-	SDL_Surface *HighScoreSurface;
-
+	SDL_Surface* FontSurface;
+	SDL_Surface* HighScoreSurface;
 };
 
 /**
