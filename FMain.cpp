@@ -46,15 +46,16 @@ void PickPlayers()
 	}
 }
 
-void LandSatt(int &isp)
+//void LandSatt(int &isp)
+void CheckBallLanded(int &current_player)
 {
-	if(isplaying[isp].BallLanded==true || isplaying[isp].BallInHole )
+    if (isplaying[current_player].BallLanded == true || isplaying[current_player].BallInHole)
 		{	
 		
-			isplaying[isp].BallLanded=false;
-			isplaying[isp].score++;
+        isplaying[current_player].BallLanded = false;
+        isplaying[current_player].score++;
 
-			if(isplaying[isp].BallInHole)
+        if (isplaying[current_player].BallInHole)
 				players.antalsomsattden++;
 			if(players.antalsomsattden==players.players)
 			{
@@ -94,19 +95,19 @@ void LandSatt(int &isp)
 					}
 					
 
-					isp=0;
-					BreddHojd(isplaying[isp].ball); //Centrerar skärmen
+                    current_player = 0;
+                    BreddHojd(isplaying[current_player].ball); //Centrerar skärmen
 				}
 
 				// Byt bana
 			}
 			else
 			{
-				while(isplaying[(++isp)%players.players].BallInHole==true) //Stegar frammåt till nästa spelare som itne satt den
+                while (isplaying[(++current_player) % players.players].BallInHole == true) //Stegar frammåt till nästa spelare som itne satt den
 					;
 
-				isp%=players.players;
-				BreddHojd(isplaying[isp].ball);
+                current_player %= players.players;
+                BreddHojd(isplaying[current_player].ball);
 			}
 		}
 }

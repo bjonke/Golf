@@ -28,6 +28,7 @@ void PickPlayers();
 * @date 2012-07-27
 */
 void LandSatt(int &isp);
+void CheckBallLanded(int &current_player);
 
 /**
 * This method will be used for main events.

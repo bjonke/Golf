@@ -117,7 +117,8 @@ int main(int, char**)
 		
 		int Starttime=SDL_GetTicks();
 
-		LandSatt(isp);	
+		//LandSatt(isp);
+        CheckBallLanded(isp);
 		
 		EventHandler(bo,RHeight,RWidth,x2,y2,Club,Clubs,isp,value);
 			
