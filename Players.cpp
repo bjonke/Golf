@@ -6,7 +6,7 @@ Players::Players()
 	players=1;
 	playeractivated=0;
 	tournament=false;
-	antalsomsattden=0;
+    finished_hole = 0;
 	picked=false;
 	finished=false;
 

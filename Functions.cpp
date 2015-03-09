@@ -154,9 +154,7 @@ void drawcircle(int x, int y, int r, int c)	 //Ritar bollen
 
 //Bollpos parameter
 void Matare(golf_ball_position &boll) 
-{	
-	
-
+{
 	SDL_SetColorKey( surf.MeterSurface , SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.MeterSurface->format, 255,0,0)); 
 	
 	if(boll.x-bredd1 < 120 && boll.y-hojd1 > 400)
@@ -205,7 +203,7 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 	if(boll.x-bredd1 < 120 && boll.y-hojd1 < 200)
 		trans=150;
 	
-	SDL_SetColorKey(surf.WindSurface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.WindSurface->format, 255,0,0));
+	SDL_SetColorKey(surf.WindSurface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.WindSurface->format, 255,128,255));
 	
 	DrawIMGAlpha(surf.WindSurface, 1, 1, 110, 110, 0, 0,trans,true);
 	int tempX=0;

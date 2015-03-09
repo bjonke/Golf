@@ -279,9 +279,9 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 		{		
 			strcpy(namn[10],play.names[i]);
 			score[10]= isp[i].score;
-			bool klar=false;
+			bool finished_sorting=false;
 
-			for(int j=9; j>=0 && !klar ; --j)
+			for(int j=9; j>=0 && !finished_sorting ; --j)
 			{
 				if(score[j] > score[j+1])
 				{
@@ -293,7 +293,9 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 					swap(score[j],score[j+1]);
 				}
 				else
-					klar=true;
+                {
+					finished_sorting=true;
+                }
 			}
 		}
 	}

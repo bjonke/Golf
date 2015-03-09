@@ -56,8 +56,8 @@ void CheckBallLanded(int &current_player)
         isplaying[current_player].score++;
 
         if (isplaying[current_player].BallInHole)
-				players.antalsomsattden++;
-			if(players.antalsomsattden==players.players)
+            players.finished_hole++;
+        if (players.finished_hole == players.players)
 			{
 				++ActiveGolfCourse;
 				
@@ -85,7 +85,7 @@ void CheckBallLanded(int &current_player)
 					hojd=GolfCourseHeight[ActiveGolfCourse];
 
 					yta=tyta[ActiveGolfCourse];
-					players.antalsomsattden=0;
+                    players.finished_hole = 0;
 					
 
 					for(int i=0; i<players.players; i++)

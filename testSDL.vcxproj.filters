@@ -6,17 +6,17 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files\sound">
-      <UniqueIdentifier>{3102a87a-ba2a-4987-b982-8904de0c7411}</UniqueIdentifier>
+      <UniqueIdentifier>{3a28df1c-bfc6-404d-a887-bcfb7347f0b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files\sound">
-      <UniqueIdentifier>{bb9f2899-f565-4117-b51a-92619f2f1953}</UniqueIdentifier>
+      <UniqueIdentifier>{34ba59f5-c3ed-4e3c-98d2-32ef4154590e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\graphics">
-      <UniqueIdentifier>{098600fa-0ce1-4311-98d6-19d031004521}</UniqueIdentifier>
+      <UniqueIdentifier>{10e39c77-9e15-4998-9565-d6a28ea96ae3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -30,20 +30,23 @@
     <ClCompile Include="sound.cpp">
       <Filter>Source Files\sound</Filter>
     </ClCompile>
-    <ClCompile Include="FMain.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="funktioner.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Globals.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="playerinput.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FMain.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="skjut.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Players.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="graphics.h">
       <Filter>Header Files\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Players.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
