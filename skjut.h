@@ -80,14 +80,14 @@ struct IsPlaying
 };
 
 /**
-* This method will be used for hitting the golf ball.
+* This method will be used for hitting the golf ball. OLD
 * @author RISK
 * @date 2012-07-27
 */
 void hitBoll(GolfClub klubba,golf_ball_position &boll);
 
 /**
-* This method will be used for Shooting the golf ball.
+* This method will be used for Shooting the golf ball. OLD
 * @author RISK
 * @date 2012-07-27
 */
