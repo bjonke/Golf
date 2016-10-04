@@ -1,12 +1,13 @@
 #include "Players.h"
 
+// Initializing the players
 Players::Players()
 {
 	selectMap=1;
 	players=1;
 	playeractivated=0;
 	tournament=false;
-    finished_hole = 0;
+	finished_hole = 0;
 	picked=false;
 	finished=false;
 
