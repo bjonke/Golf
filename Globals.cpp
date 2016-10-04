@@ -35,6 +35,9 @@ Surf::Surf()
 
 	ScreenSurface = SDL_SetVideoMode(800,600,32,SDL_SWSURFACE |SDL_DOUBLEBUF  );
 	
+	// Replacement for the above surface
+	//ImageSurface["Screen"] = SDL_SetVideoMode(800,600,32,SDL_SWSURFACE |SDL_DOUBLEBUF  );
+	
 	if(! ScreenSurface)
 	{
 		cerr << "Error: SetVideoMode failed" << endl;		
@@ -50,6 +53,17 @@ Surf::Surf()
 	//varde = SDL_LoadBMP("gfx/varde.bmp");
 	//vind = SDL_LoadBMP("gfx/vind.bmp");
 
+	// Replacement code for the Loading of surfaces
+	ImageSurface["Image"] = SDL_LoadBMP("gfx/allt.bmp");
+	ImageSurface["GolfImage"] = SDL_LoadBMP("gfx/golfallt.bmp");
+	ImageSurface["InitPlayerImage"] = SDL_LoadBMP("gfx/introbild.bmp");
+	ImageSurface["MeterImage"] = SDL_LoadBMP("gfx/matare.bmp");
+	ImageSurface["BirdImage"] = SDL_LoadBMP("gfx/bird.bmp");
+	ImageSurface["GolferImage"] = SDL_LoadBMP("gfx/golfer.bmp");
+	ImageSurface["ValueImage"] = SDL_LoadBMP("gfx/varde.bmp");
+	ImageSurface["WindImage"] = SDL_LoadBMP("gfx/vind.bmp");
+	ImageSurface["FontImage"] = SDL_LoadBMP("gfx/font.bmp");
+	
 	ImageSurface = SDL_LoadBMP("gfx/allt.bmp");
 	GolfImageSurface = SDL_LoadBMP("gfx/golfallt.bmp");
 	InitPlayerSurface = SDL_LoadBMP("gfx/introbild.bmp");
@@ -73,6 +87,8 @@ Surf::Surf()
 
 Surf::~Surf()
 {
+	// Add code for freeing surfaces in the std::map for Surfaces
+	
 	SDL_FreeSurface(ImageSurface);
 	SDL_FreeSurface(GolfImageSurface);
 	SDL_FreeSurface(InitPlayerSurface);
