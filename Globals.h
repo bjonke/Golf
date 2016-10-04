@@ -34,6 +34,10 @@ using namespace std;
 class DrawingSurface
 {
 public:
+	
+	// Replacement for each individual Surface object
+	std::map <string, SDL_Surface*> ImageSurface;
+	
 	SDL_Surface* ScreenSurface;
 	SDL_Surface* ImageSurface;
 	SDL_Surface* GolfImageSurface;
