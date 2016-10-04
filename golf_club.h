@@ -1,9 +1,8 @@
 /** 
 * @file golf_club.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
@@ -11,26 +10,31 @@
 #pragma once
 #include "Globals.h"
 
-	/**
-	* This method will be used for sound.
-	* @author RISK
-	* @date 2012-07-27
-	*/
+// Replacement class for the golf_club struct
+class GolfClub
+{
+public:
+	
+	// What are these values for?
+	float height;
+	float length;
+	
+	GolfClub(){};
+	GolfClub(float height,float length){ this->height = height, this->length=length; };	
+	~GolfClub(){};
+};
+
+/**
+* This method will be used for sound.
+* @author RISK
+* @date 2012-07-27
+*/
 struct golf_club
 {
 	float height;
 	float length;
-	/**
-	* This method will be used for sound.
-	* @author RISK
-	* @date 2012-07-27
-	*/	
+
 	golf_club(){}
-		/**
-	* This method will be used for sound.
-	* @author RISK
-	* @date 2012-07-27
-	*/
 	golf_club(float height,float length){this->height = height, this->length=length;}	
 };
 
