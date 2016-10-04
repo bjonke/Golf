@@ -1,7 +1,6 @@
 /** 
 * @file Globals.cpp
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
 * @author RISK
 *
@@ -34,17 +33,13 @@ Surf::Surf()
 	FontSurface = 0;
 	HighScoreSurface = 0;
 
-	
 	ScreenSurface = SDL_SetVideoMode(800,600,32,SDL_SWSURFACE |SDL_DOUBLEBUF  );
 	
-
 	if(! ScreenSurface)
 	{
 		cerr << "Error: SetVideoMode failed" << endl;		
 		SDL_Quit();
-		
 	}
-	
 
 	//image = SDL_LoadBMP("gfx/allt.bmp");
 	//golfimage = SDL_LoadBMP("gfx/golfallt.bmp");
@@ -126,5 +121,4 @@ Bools::Bools()
 	//power=true;	
 	//Rmove=false;
 	//done=false;
-
 }
