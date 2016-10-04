@@ -1,12 +1,12 @@
 /** 
 * @file main.cpp 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief application entry file for the game.
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
+
 //#include "skjut.h"
 //#include "funktioner.h"
 //#include "playerinput.h"
@@ -16,6 +16,7 @@
 #include "golf_club.h"
 
 //using namespace std;
+
 
 #define GOLFCOURT_HOLE 9
 
@@ -36,10 +37,11 @@ int main(int, char**)
 	//InitVideo();
 	//SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	// Initializes the video subsystem
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) 
+	{
 		cerr << "Unable to init SDL: " << SDL_GetError() << endl;
 		exit(1);
-    }
+	}
 
 	char GolfCourtFile[] = "golfcourts/level1";
 	vector<vector<int> > array2D;
@@ -79,14 +81,13 @@ int main(int, char**)
 	int x2=0,y2=0; //mouse related
 	int isp=0;
 	
-	
 	GolfClub Club;
 	GolfClub Clubs[]={GolfClub(6.0f,8.0f),
-		GolfClub(6.0f,7.0f),
-		GolfClub(9.0f,3.0f),
-		GolfClub(6.0f,9.0f),
-		GolfClub(11.0f,2.2f),
-		GolfClub(0.0f,13.0f)};
+	GolfClub(6.0f,7.0f),
+	GolfClub(9.0f,3.0f),
+	GolfClub(6.0f,9.0f),
+	GolfClub(11.0f,2.2f),
+	GolfClub(0.0f,13.0f)};
 	
 	float RHeight,RWidth;
 	
@@ -100,25 +101,27 @@ int main(int, char**)
 		isplaying[i].ball=GolfBallPosition[ActiveGolfCourse];		
 	}
 	
-		while(!bo.Done)
+	while(!bo.Done)
+	{
+		while(!players.picked)
 		{
-			
-			while(!players.picked)
-			{
-				SDL_ShowCursor(SDL_ENABLE);
-				PickPlayers();
-			}
-			//if(bo.done)
-			//	break;	
-			if(bo.PickGolfClub)
-				SDL_ShowCursor(SDL_ENABLE);
-			else
-				SDL_ShowCursor(SDL_DISABLE);
-		
+			SDL_ShowCursor(SDL_ENABLE);
+			PickPlayers();
+		}
+		//if(bo.done)
+		//	break;	
+		if(bo.PickGolfClub)
+		{
+			SDL_ShowCursor(SDL_ENABLE);
+		}
+		else
+		{
+			SDL_ShowCursor(SDL_DISABLE);
+		}
 		int Starttime=SDL_GetTicks();
 
 		//LandSatt(isp);
-        CheckBallLanded(isp);
+        	CheckBallLanded(isp);
 		
 		EventHandler(bo,RHeight,RWidth,x2,y2,Club,Clubs,isp,value);
 			
@@ -128,7 +131,9 @@ int main(int, char**)
 		const int c=30;
 		
 		if(bo.FireGolfBall==false)
-			SDL_GetMouseState(&x2,&y2);	
+		{
+			SDL_GetMouseState(&x2,&y2);
+		}
 
 		static int button=1;
 		static bool down=false;
@@ -141,8 +146,7 @@ int main(int, char**)
 		{			
 			set=true;			
 		}
-	
-				
+			
 		for(int i=1; i<18; ++i)
 			for(int j=1; j<17; ++j) //ritar ut allt
 			{
@@ -152,10 +156,7 @@ int main(int, char**)
 					DrawIMGAlpha(surf.ImageSurface, i*50-50-(int)bredd1%50, j*50-50-(int)hojd1%50, 50, 50,(((50+yta[i-1+((int)bredd1/50)][j-1+(int)hojd1/50])/50)*50-50), (yta[i-1+(int)bredd1/50][j-1+(int)hojd1/50]%50)*50-50,0,false);
 			}		
 		
-
-		
-		
-			if(bo.MouseRightDown)
+		if(bo.MouseRightDown)
 		{
 			if((x2 > 700 && ((RWidth+20)/50) < (bredd-18)))		
 				RWidth+=20;
@@ -183,9 +184,7 @@ int main(int, char**)
 			y=30*(RHeight-hojd1)/(sqrtf(powf(abs(RWidth-bredd1),2)+powf(abs(RHeight-hojd1),2)));
 			if(abs(RWidth-bredd1) < 30)
 				if(abs(RHeight-hojd1) < 30)
-					bo.RMove=false;
-			
-			
+					bo.RMove=false;			
 			RWidth-=x;
 			RHeight-=y;
 		}
@@ -217,17 +216,13 @@ int main(int, char**)
 		ViewPower(value);	
 		viewWind(WPos,isplaying[isp].ball);
 		//if(bo.Rmove==false)
-			viewBird();
-	
+		viewBird();
 			
-			SDL_Flip(surf.ScreenSurface);	 
+		SDL_Flip(surf.ScreenSurface);
 		
 		//cout << SDL_GetTicks()-Starttime << endl;
-
-		
 		if(SDL_GetTicks()-Starttime <20)
 			SDL_Delay(20-(SDL_GetTicks()-Starttime));
-		
 	}	
 	return 0;	
 }
