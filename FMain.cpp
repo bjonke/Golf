@@ -1,9 +1,8 @@
 /** 
 * @file FMain.cpp 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author RISK
+* @author dmeo
 *
 * @date 2012-07-27
 */
@@ -199,8 +198,6 @@ void MainEvents(Bools &bo,float &Rhojd,float &Rbredd,int x2,int y2,GolfClub &klu
 		}
 	}
 }
-
-
 
 void MainSkjut(bool &set,int &x2,int &y2,int &isp,GolfClub &klubb,Bools &bo, float &value,Pos &windPos,Pos &WPos)
 {
