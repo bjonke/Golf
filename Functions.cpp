@@ -216,8 +216,6 @@ void Matare(golf_ball_position &boll)
 float Power(bool &first) //Sägger kraften på slaget
 {
 	static float power=0;
-	
-
 
 	if(first==true)
 	{
@@ -239,7 +237,9 @@ float Power(bool &first) //Sägger kraften på slaget
 void ViewPower(float power) //Ritar hur mycket kraft slaget kommer få
 {
 	if(power>1.0f)
-		return ;
+	{
+		return;
+	}
 
 	int place=(int)(64.0f*power);
 	DrawIMGAlpha(surf.ValueSurface, 47, 583-place, 23, place, 0, 64-place,255,true);
@@ -290,7 +290,6 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 				tempX=2*Tbredd;
 		}
 	}
-
 	else
 	{
 		tempY=0;
@@ -316,13 +315,8 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 			
 		}
 		j++;
-
-
 	}
-	
 }
-
-	
 
 void viewBird() //Ritar fågel
 {
@@ -341,6 +335,7 @@ void viewBird() //Ritar fågel
 	{
 		flying = false;
 	}
+	
 	if( flying == false )
 	{
 		Birds_pos_x = 0;
@@ -411,6 +406,3 @@ void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
 		SDL_Flip(surf.ScreenSurface);
 	}
 }
-			
-			
-
