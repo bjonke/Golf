@@ -1,9 +1,8 @@
 /** 
 * @file FMain.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
