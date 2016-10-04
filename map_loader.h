@@ -1,21 +1,38 @@
 /** 
 * @file map_loader.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
 * @author RISK
 *
 * @date 2012-07-27
 */
 
+#include <iostream>
 #include <string>
 using namespace std;
 
-	/**
-	* This method will be used for sound.
-	* @author RISK
-	* @date 2012-07-27
-	*/
+// Replacement function for the map_file_load function
+void LoadMapFromFile(std::string file)
+{
+	if( file.empty() )
+	{
+		std::cout << "Failed due to not specifying a map file to load" << std::endl;
+	}
+	else
+	{
+		for(int k=0; k<9; k++)
+		{
+			ifstream map_file; // Filebuffer object
+			map_file.open(file.c_str());
+			
+			int value;
+			map_file >> value; 
+			std::cout << value << std::endl;
+		}
+		cin.get(); // pause and wait for user keypress
+	}
+};
+
 bool map_file_load(std::string map_file_name)
 {
 	if( map_file_name.empty() )
