@@ -1,9 +1,8 @@
 /** 
 * @file Players.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author bjonke
+* @author demo
 *
 * @date 2012-07-27
 */
@@ -14,6 +13,7 @@
 #include <string>
 #include "Functions.h"
 
+// Replacement class for the Players struct
 class Player
 {
 	public:
@@ -43,7 +43,7 @@ struct Players
 {
 	bool tournament;
 	int players,playeractivated;
-    int finished_hole;
+	int finished_hole;
 	bool picked;
 	bool finished;
 	
