@@ -1,7 +1,6 @@
 /** 
 * @file graphics.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
 * @author RISK
 *
