@@ -1,9 +1,8 @@
 /** 
 * @file Globals.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
@@ -13,36 +12,52 @@
 #include <string>
 #include <math.h>
 #include <time.h>
+
+// Should be removed as it isnt used
 #include "SDL_mixer.h"
+
 #include "SDL.h"
+
+// Remove this to
 #pragma once
 #include "sound.h"
 
+// useful for not needing to add the libs reference into the compiler config
 #pragma comment(lib,"SDL.lib")
 #pragma comment(lib,"SDLmain.lib")
 #pragma comment(lib,"SDL_mixer.lib")
 
+// should be replaced with the specific namespaces used as includes
 using namespace std;
+
+// Replacement for struct Surf
+class DrawingSurface
+{
+public:
+	SDL_Surface* ScreenSurface;
+	SDL_Surface* ImageSurface;
+	SDL_Surface* GolfImageSurface;
+	SDL_Surface* InitPlayerSurface;
+	SDL_Surface* MeterSurface;
+	SDL_Surface* BirdSurface;
+	SDL_Surface* GolferSurface;
+	SDL_Surface* ValueSurface;
+	SDL_Surface* WindSurface;
+	SDL_Surface* FontSurface;
+	SDL_Surface* HighScoreSurface;
+
+	DrawingSurface(){};
+	~DrawingSurface(){};
+};
 
 /**
 * This struct will be used for holding values for drawing surfaces.
-* @author RISK
+* @author demo
 * @date 2012-07-27
 */
 struct Surf
 {
-	/**
-	* This method will be used for initiating surfaces.
-	* @author RISK
-	* @date 2012-07-27
-	*/
 	Surf();
-
-	/**
-	* This method will be used for destroying surfaces.
-	* @author RISK
-	* @date 2012-07-27
-	*/
 	~Surf();
 
 	//SDL_Surface* screen;
@@ -111,7 +126,7 @@ struct Bools
 	Bools();
 };
 
-
+// Replace all these with something useful
 extern float hojd1;
 extern float bredd1;
 extern int bredd;
