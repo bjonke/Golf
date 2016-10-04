@@ -1,9 +1,8 @@
 /** 
-* @file funktioner.cpp 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @file Functions.cpp 
+* @brief 
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
@@ -19,6 +18,23 @@
 //extern int bredd;
 //extern int hojd;
 
+// Replacement function for void Windrandom(float &x,float &y,float &max)
+void WindEffect(float &x,float &y,float &max)
+{
+	x = rand() % 3;
+	y = rand() % 3;
+	int power = rand() %17;
+	x-=1;
+	y-=1;
+	float speed;
+
+	if( x==0 || y==0)
+		speed=1;	//ifall bara en har vinkel
+	else
+		speed=0.707;  // ifall bÃ¥de x och y har vinkel
+	max=((power+5)/10.0)*speed;	
+}
+
 void Windrandom(float &x,float &y,float &max)
 {
 	x = rand() % 3;
@@ -31,7 +47,7 @@ void Windrandom(float &x,float &y,float &max)
 	if( x==0 || y==0)
 		speed=1;	//ifall bara en har vinkel
 	else
-		speed=0.707;  // ifall både x och y har vinkel
+		speed=0.707;  // ifall bÃ¥de x och y har vinkel
 	max=((power+5)/10.0)*speed; 
 }
 
@@ -39,13 +55,13 @@ void UseWind(bool &startMove, Pos &boll, Pos &WPos)
 {
 	static float x,y,max;
 	
-	if(startMove)	//sätter vinden
+	if(startMove)	//sÃ¤tter vinden
 	{
 		Windrandom(x,y,max);
 		boll.x=0;
 		boll.y=0;
 	}
-	else if(max> abs((int)x) || max > abs((int)y))	//Gör så bollen ökar en bit åt gången
+	else if(max> abs((int)x) || max > abs((int)y))	//GÃ¶r sÃ¥ bollen Ã¶kar en bit Ã¥t gÃ¥ngen
 	{
 		if(x!=0)
 		boll.x +=x*(max/60.0f);
@@ -57,23 +73,23 @@ void UseWind(bool &startMove, Pos &boll, Pos &WPos)
 	startMove=false;
 }
 
-void DrawIMGAlpha(SDL_Surface *img,int x, int y, int w, int h, int x2, int y2, int alpha_color, bool alpha_on) //Ritar ut sprites med alhpa värde
+void DrawIMGAlpha(SDL_Surface *img,int x, int y, int w, int h, int x2, int y2, int alpha_color, bool alpha_on) //Ritar ut sprites med alhpa vÃ¤rde
 {
 	if(alpha_on)
 	{
 		SDL_SetAlpha(img, SDL_SRCALPHA, alpha_color); 
 	}
 
-  SDL_Rect dest;
-  dest.x = x;
-  dest.y = y;
-  SDL_Rect dest2;
-  dest2.x = x2;
-  dest2.y = y2;
-  dest2.w = w;
-  dest2.h = h;  
+	SDL_Rect dest;
+  	dest.x = x;
+  	dest.y = y;
+  	SDL_Rect dest2;
+  	dest2.x = x2;
+  	dest2.y = y2;
+  	dest2.w = w;
+  	dest2.h = h;  
     
-  SDL_BlitSurface(img, &dest2, surf.ScreenSurface, &dest);   
+  	SDL_BlitSurface(img, &dest2, surf.ScreenSurface, &dest);   
 }
 
 /** 
@@ -84,16 +100,13 @@ void DrawIMGAlpha(SDL_Surface *img,int x, int y, int w, int h, int x2, int y2, i
 * @date 2012-07-27
 */
 
-void DrawLine(float startX,float startY,float stopX,float stopY) // ritar linje
-
+void DrawLine(float startX,float startY,float stopX,float stopY)
 {
 	float dx = stopX-startX;
 	float dy = stopY-startY;
-
 	float x1,y1;
-
-
 	int length = 0;
+
 	if( abs(dx) > abs(dy) ) 
 	{
 		x1 = dx / abs(dx);
@@ -106,6 +119,7 @@ void DrawLine(float startX,float startY,float stopX,float stopY) // ritar linje
 		y1 = dy / abs(dy);
 		length = (int)abs(dy);
 	}
+	
 	float stX=startX;
 	float stY=startY;
 
@@ -116,8 +130,43 @@ void DrawLine(float startX,float startY,float stopX,float stopY) // ritar linje
 		startX += x1;
 		startY += y1;
 	}
-	
 }
+
+// Replacement function for Drawing the golf ball
+void DrawGolfBall(int x, int y, int r, int c)
+{
+	int i, j;
+	for (i = 0; i < 2 *r; i++)
+  	{
+    		// vertical clipping: (top and bottom)
+    		if ((y - r + i) >= 0 && (y - r + i) < 600)
+    		{
+      			int len = (int)sqrt((float)(r * r - (r - i) * (r - i)))*2;
+      			int xofs = x - len/2;
+
+      			// left border
+      			if (xofs < 0)
+      			{
+		        	len += xofs;
+		       		xofs = 0;
+      			}
+
+      			// right border
+      			if (xofs + len >= 800)
+      			{
+				len -= (xofs + len) - 800;
+      			}
+      			int ofs = (y - r + i) * PITCH + xofs;
+      
+      			// note that len may be 0 at this point, 
+      			// and no pixels get drawn!
+      			for (j = 0; j < len; j++)
+			{
+				((unsigned int*)surf.ScreenSurface->pixels)[ofs + j] = 0xFFFFFFFF;
+			}
+		}
+	}
+};
 
 void drawcircle(int x, int y, int r, int c)	 //Ritar bollen
 {
@@ -164,7 +213,7 @@ void Matare(golf_ball_position &boll)
 }
 
 
-float Power(bool &first) //Sägger kraften på slaget
+float Power(bool &first) //SÃ¤gger kraften pÃ¥ slaget
 {
 	static float power=0;
 	
@@ -187,7 +236,7 @@ float Power(bool &first) //Sägger kraften på slaget
 	return 2.0f-power;
 }
 
-void ViewPower(float power) //Ritar hur mycket kraft slaget kommer få
+void ViewPower(float power) //Ritar hur mycket kraft slaget kommer fÃ¥
 {
 	if(power>1.0f)
 		return ;
@@ -275,7 +324,7 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 
 	
 
-void viewBird() //Ritar fågel
+void viewBird() //Ritar fÃ¥gel
 {
 	static int Birds_pos_x;
 	static int Birds_pos_y;
@@ -333,7 +382,7 @@ void viewBird() //Ritar fågel
 */
 }
 
-void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
+void animPlayer(float value) //Borttagen funktion som ritar en spelare som slÃ¥r
 {	
 	bool done=false;
 	float tempval,val= -value - 0.01f;
