@@ -1,9 +1,8 @@
 /** 
 * @file playerinput.cpp 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
@@ -13,10 +12,8 @@
 //#include <iostream>
 //using namespace std;
 
-
 //extern SDL_Surface* screen;
 //extern float bredd1,hojd1;
-
 
 #define PITCH (surf.ScreenSurface->pitch/4)
 
@@ -399,5 +396,4 @@ void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying
 	}
 	SDL_FreeSurface(img);
 	SDL_ShowCursor(SDL_DISABLE);
-	
 }
