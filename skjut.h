@@ -1,9 +1,8 @@
 /** 
 * @file skjut.h 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
+* @brief 
 *
-* @author RISK
+* @author demo
 *
 * @date 2012-07-27
 */
@@ -21,37 +20,23 @@ T Smallest(T ett, T tva);
 
 enum Direction{Up,Down,Right,Left,None};
 
-/**
-* This struct will be used for Positioning.
-* @author RISK
-* @date 2012-07-27
-*/
 struct Pos
 {
 	float x;
 	float y;
 };
 
-/**
-* This struct will be used for positioning the golf ball.
-* @author RISK
-* @date 2012-07-27
-*/
 struct golf_ball_position
 {
-	float x;
-	float y;
+	Pos Position;
+	//float x;
+	//float y;
 	float height;
 	float distance;
 	float current_height;
 	golf_ball_position() : current_height(0) {}
 };
 
-/**
-* This method will be used for the different golf clubs.
-* @author RISK
-* @date 2012-07-27
-*/
 struct GolfClub
 {
 	float height;
