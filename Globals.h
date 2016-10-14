@@ -1,12 +1,3 @@
-/** 
-* @file Globals.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -50,15 +41,10 @@ public:
 	SDL_Surface* FontSurface;
 	SDL_Surface* HighScoreSurface;
 
-	DrawingSurface(){};
-	~DrawingSurface(){};
+	DrawingSurface(){ std::cout << "DrawingSurface initialize..." << std::endl; };
+	~DrawingSurface(){ std::cout << "DrawingSurface destruction..." << std::endl; };
 };
 
-/**
-* This struct will be used for holding values for drawing surfaces.
-* @author demo
-* @date 2012-07-27
-*/
 struct Surf
 {
 	Surf();
@@ -89,11 +75,6 @@ struct Surf
 	SDL_Surface* HighScoreSurface;
 };
 
-/**
-* This struct will be used for keeping track of booleans.
-* @author RISK
-* @date 2012-07-27
-*/
 struct Bools
 {
 	bool FireGolfBall;
@@ -122,13 +103,21 @@ struct Bools
 	//bool power;
 	//bool Rmove;
 
-	/**
-	* This method will be used for initiating the struct.
-	* @author RISK
-	* @date 2012-07-27
-	*/
 	Bools();
 };
+
+// Replacing the struct variables in Bools
+extern bool FireGolfBall;
+extern float Value;
+extern bool SetValue;
+extern bool FirstShot;
+extern bool PIckGolfClub;
+extern bool Ground;
+extern bool Power;
+extern bool RMove;
+extern bool MouseRightDown;
+extern bool MouseLeftDown;
+extern bool MouseDown;
 
 // Replace all these with something useful
 extern float hojd1;
