@@ -1,12 +1,3 @@
-/** 
-* @file Functions.cpp 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #include <math.h>
 #include <iomanip>
 #include "Functions.h"
@@ -173,32 +164,34 @@ void drawcircle(int x, int y, int r, int c)	 //Ritar bollen
   int i, j;
   for (i = 0; i < 2 *r; i++)
   {
-    // vertical clipping: (top and bottom)
-    if ((y - r + i) >= 0 && (y - r + i) < 600)
-    {
-      int len = (int)sqrt((float)(r * r - (r - i) * (r - i)))*2;
-      int xofs = x - len/2;
+	  // vertical clipping: (top and bottom)
+	  if ((y - r + i) >= 0 && (y - r + i) < 600)
+	  {
+		int len = (int)sqrt((float)(r * r - (r - i) * (r - i)))*2;
+      		int xofs = x - len/2;
+		
+		// left border
+      		if (xofs < 0)
+      		{
+        		len += xofs;
+        		xofs = 0;
+      		}
 
-      // left border
-      if (xofs < 0)
-      {
-        len += xofs;
-        xofs = 0;
-      }
-
-      // right border
-      if (xofs + len >= 800)
-      {
-        len -= (xofs + len) - 800;
-      }
-      int ofs = (y - r + i) * PITCH + xofs;
+      		// right border
+      		if (xofs + len >= 800)
+      		{
+        		len -= (xofs + len) - 800;
+      		}
+      		int ofs = (y - r + i) * PITCH + xofs;
       
-      // note that len may be 0 at this point, 
-      // and no pixels get drawn!
-      for (j = 0; j < len; j++)
-		  ((unsigned int*)surf.ScreenSurface->pixels)[ofs + j] = 0xFFFFFFFF;
-    }
-  }
+      		// note that len may be 0 at this point, 
+      		// and no pixels get drawn!
+      		for (j = 0; j < len; j++)
+      		{
+			((unsigned int*)surf.ScreenSurface->pixels)[ofs + j] = 0xFFFFFFFF;
+      		}
+    	}
+  	}
 }
 
 //Bollpos parameter
@@ -207,9 +200,13 @@ void Matare(golf_ball_position &boll)
 	SDL_SetColorKey( surf.MeterSurface , SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.MeterSurface->format, 255,0,0)); 
 	
 	if(boll.x-bredd1 < 120 && boll.y-hojd1 > 400)
+	{
 		DrawIMGAlpha(surf.MeterSurface, 1, 495, 116, 102, 1, 1,150,true);
+	}
 	else
+	{
 		DrawIMGAlpha(surf.MeterSurface, 1, 495, 116, 102, 1, 1,255,true);
+	}
 }
 
 
@@ -250,7 +247,9 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 {
 	int trans=255;
 	if(boll.x-bredd1 < 120 && boll.y-hojd1 < 200)
+	{
 		trans=150;
+	}
 	
 	SDL_SetColorKey(surf.WindSurface, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(surf.WindSurface->format, 255,128,255));
 	
@@ -262,16 +261,22 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 	if(WindPos.x==0 && WindPos.y!=0)
 	{		
 		if(WindPos.y>0)
+		{
 			tempX=2*Tbredd;
+		}
 	}
 
 	else if(WindPos.x!=0 && WindPos.y==0)
 	{
 		
 		if(WindPos.y>0)
+		{
 			tempX=Tbredd;
+		}
 		else
+		{
 			tempX=3*Tbredd;
+		}
 	}
 
 	else if(WindPos.x!=0 && WindPos.y!=0)
@@ -280,14 +285,20 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 		if(WindPos.y<0)
 		{
 			if(WindPos.x <0)
+			{
 				tempX=3*Tbredd;
+			}
 		}
 		else
 		{
 			if(WindPos.x > 0)
+			{
 				tempX=Tbredd;
+			}
 			else
+			{
 				tempX=2*Tbredd;
+			}
 		}
 	}
 	else
@@ -385,7 +396,6 @@ void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
 	bool vanster=true;
 	while(!done)
 	{
-		
 		DrawIMGAlpha(surf.GolferSurface,360,530,62,69,190+(63*(int)(tempval*4)),1,0,false);
 
 		if(vanster)
