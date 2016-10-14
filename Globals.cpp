@@ -1,12 +1,3 @@
-/** 
-* @file Globals.cpp
-* @brief 
-*
-* @author RISK
-*
-* @date 2012-07-27
-*/
-
 #include "Globals.h"
 
 float hojd1=0;
@@ -40,7 +31,7 @@ Surf::Surf()
 	
 	if(! ScreenSurface)
 	{
-		cerr << "Error: SetVideoMode failed" << endl;		
+		std::cerr << "Error: SetVideoMode failed" << std::endl;
 		SDL_Quit();
 	}
 
