@@ -1,12 +1,3 @@
-/** 
-* @file golf_club.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #pragma once
 #include "Globals.h"
 
