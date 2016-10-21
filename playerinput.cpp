@@ -1,12 +1,3 @@
-/** 
-* @file playerinput.cpp 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #include "playerinput.h"
 //#include <string>
 //#include <iostream>
