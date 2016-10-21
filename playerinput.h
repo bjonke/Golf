@@ -1,12 +1,3 @@
-/** 
-* @file playerinput.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #ifndef PLAYERINPUT
 #define PLAYERINPUT
 
