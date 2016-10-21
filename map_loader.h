@@ -1,12 +1,3 @@
-/** 
-* @file map_loader.h 
-* @brief 
-*
-* @author RISK
-*
-* @date 2012-07-27
-*/
-
 #include <iostream>
 #include <string>
 using namespace std;
