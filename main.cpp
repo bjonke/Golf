@@ -1,12 +1,3 @@
-/** 
-* @file main.cpp 
-* @brief application entry file for the game.
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 //#include "skjut.h"
 //#include "funktioner.h"
 //#include "playerinput.h"
