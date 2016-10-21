@@ -1,6 +1,5 @@
 #include "Players.h"
 
-// Initializing the players
 Players::Players()
 {
 	selectMap=1;
@@ -18,11 +17,6 @@ Players::Players()
 	}
 }
 
-/**
-* This method will be used to pick a player.
-* @author RISK
-* @date 2012-07-27
-*/
 void Players::PickPlayers()
 {
 	DrawIMGAlpha(surf.InitPlayerSurface,0,0,800,600,0,0,0,false);
