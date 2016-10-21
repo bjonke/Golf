@@ -1,12 +1,3 @@
-/** 
-* @file FMain.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #ifndef FMAIN_H
 #define FMAIN_H
 
