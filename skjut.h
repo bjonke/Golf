@@ -1,12 +1,3 @@
-/** 
-* @file skjut.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #pragma once
 #include "Globals.h"
 
