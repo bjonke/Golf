@@ -1,12 +1,3 @@
-/** 
-* @file item.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #ifndef ITEM
 #define ITEM
 #include <iostream>
