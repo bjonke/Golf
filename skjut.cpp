@@ -1,13 +1,3 @@
-/** 
-* @file skjut.cpp 
-* @brief this header file will contain all required 
-* definitions and basic utilities functions.
-*
-* @author RISK
-*
-* @date 2012-07-27
-*/
-
 #include "skjut.h"
 //#include "funktioner.h"
 //#include <math.h>
