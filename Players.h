@@ -1,12 +1,3 @@
-/** 
-* @file Players.h 
-* @brief 
-*
-* @author demo
-*
-* @date 2012-07-27
-*/
-
 #ifndef PLAYERS
 #define PLAYERS
 
