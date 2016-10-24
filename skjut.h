@@ -37,7 +37,7 @@ public:
 	float height;
 	float distance;
 	float currentHeight;
-	GolfBall() : currentHeight(0) : x(0) : y(0) : distance(0) {};
+	GolfBall() : currentHeight(0.0f) , x(0.0f) , y(0.0f) , distance(0.0f), height(0.0f) {};
 	
 	float getHeight() { return height; };
 	float getX() { return x; };
