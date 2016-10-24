@@ -146,46 +146,46 @@ bool Shoot(IsPlaying &play, GolfBall &Ball, Pos &Windpos, float &atX, float &atY
 	return false;	
 }
 
-bool Skjut(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground) //Allt som har med bollens skjutande att göra
+bool Skjut(IsPlaying &play, GolfBall &Ball, Pos &Windpos, float &atX, float &atY, bool &ground) //Allt som har med bollens skjutande att göra
 {	
-	boll.current_height+=boll.height;
-	if(boll.current_height>0)
+	//boll.current_height+=boll.height;
+	Ball.setCurrentHeight( Ball.getCurrentHeight() + Ball.getHeight() );
+	if(Ball.getCurrentHeight() > 0)
 	{
-		if(yta[(int)boll.x/50][(int)boll.y/50]==4)
+		if(yta[(int)Ball.getX()/50][(int)Ball.getY()/50]==4)
 		{
-			int CenterX= (int)(boll.x/50 )*50+25;
-			int CenterY=(int)(boll.y/50 )*50+17;
+			int CenterX= (int)(Ball.getX()/50 )*50+25;
+			int CenterY=(int)(Ball.getY()/50 )*50+17;
 			static int CX=-1,CY=-1;
 			
 			bool tempbool=false;
 			
 
-			float tempX=boll.x-atX,tempY=boll.y-atY;
+			float tempX=Ball.getX()-atX,tempY=Ball.getY()-atY;
 			float malLangd= sqrtf(powf(CenterX-tempX,2.0) + powf(CenterY-tempY,2.0));
 			float bollLangd;
 			
-			if(boll.distance>malLangd)
+			if( Ball.getDistance() > malLangd)
 			{
 				bollLangd=malLangd;
 			}
 			else
-				bollLangd=boll.distance;
+				bollLangd= Ball.getDistance();
 
 			tempX+=atX*bollLangd;
 			tempY+=atY*bollLangd;			
 			
 			
 
-			if(sqrtf(powf((tempX-CenterX),2.0) + powf((tempY-CenterY),2.0)) <15 && (CX!=CenterX || CY!=CenterY) && boll.current_height < 300) //Kollar om den rör träd
-			{
-				
-				atX= (atX*boll.distance + Windpos.x)/(boll.distance);
-				atY= (atY*boll.distance + Windpos.y)/(boll.distance);
+			if(sqrtf(powf((tempX-CenterX),2.0) + powf((tempY-CenterY),2.0)) <15 && (CX!=CenterX || CY!=CenterY) && Ball.getCurrentHeight() < 300) //Kollar om den rör träd
+			{	
+				atX= (atX*Ball.getDistance() + Windpos.x)/(Ball.getDistance());
+				atY= (atY*Ball.getDistance() + Windpos.y)/(Ball.getDistance());
 				Windpos.x=0;
 				Windpos.y=0;
-				if(boll.height>0)
-					boll.height=0;				
-				boll.distance/=2;
+				if(Ball.getHeight() > 0)
+					Ball.setHeight(0); //boll.height=0;				
+				Ball.setDistance(Ball.getDistance() / 2); //boll.distance/=2;
 
 				CX=CenterX;
 				CY=CenterY;
@@ -211,40 +211,44 @@ bool Skjut(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,floa
 			}		
 		}
 
-		boll.height-=0.1f;	
+		//boll.height-=0.1f;
+		Ball.setHeight(Ball.getHeight() - 0.1f);
 		return true;
 	}
 
-	boll.current_height=0;
+	//boll.current_height=0;
+	Ball.setCurrentHeight(0);
 
 	if(ground)	//ifall den nått marken så sätts vinkeln
 	{
-	
-	
-		boll.distance*=0.7;
+		//boll.distance*=0.7;
+		Ball.setDistance(Ball.getDistance() * 0.7f);
 		//if(Windpos.x!=0 )
-		atX= (atX*boll.distance + Windpos.x)/(boll.distance);
+		atX= (atX*Ball.getDistance() + Windpos.x)/ Ball.getDistance();
 		//if(Windpos.y!=0) 
-		atY= (atY*boll.distance + Windpos.y)/(boll.distance);
+		atY= (atY*Ball.getDistance() + Windpos.y)/ Ball.getDistance();
 
 		Windpos.x=0;
 		Windpos.y=0;
 		ground=false;
 	}	
-		int var= yta[(int)boll.x/50][(int)boll.y/50]%50; //var bollen är
+		int var= yta[(int)Ball.getX()/50][(int)Ball.getY()/50]%50; //var bollen är
 
 		switch(var)
 		{
 		case 13:
 			InGoal(play);
 		case 1:
-			boll.distance-=0.1;
+			//boll.distance-=0.1;
+			Ball.setDistance(Ball.getDistance() - 0.1f);
 			break;
 		case 2:
 		case 5:
 		case 6:
 		case 7: 
-		case 8: boll.distance=0;
+		case 8: 
+			Ball.setDistance(0);
+			//boll.distance=0;
 			snd.Water();
 			break;
 		case 3:
@@ -252,29 +256,32 @@ bool Skjut(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,floa
 		case 10:
 		case 11:
 		case 12:
-			boll.distance-=0.5;
+			Ball.setDistance(Ball.getDistance() -0.5f);
+			//boll.distance-=0.5;
 			break;
 		case 4:
 			InTerrain(play);
-			boll.distance=0;
+			Ball.setDistance(0);
+			//boll.distance=0;
 			break;
 		}
 
 
-		if(boll.distance>0)
+		if(Ball.getDistance() > 0)
 		return true;
 
 	ground=true;
 	InTerrain(play);
-	
-	
+
 	return false;
 }
 
-void hitBoll(GolfClub klubba,golf_ball_position &boll) //initierar bollens möjligheter
+void hitBoll(GolfClub klubba,GolfBall &Ball) //initierar bollens möjligheter
 {
-	boll.height = klubba.height;
-	boll.distance = klubba.distance;		
+	//boll.height = klubba.height;
+	Ball.setHeight(klubba.height);
+	//boll.distance = klubba.distance;
+	Ball.setDistance(klubba.distance);
 }
 
 
@@ -308,32 +315,37 @@ bool CheckXY(float x,float y) //Kollaro m dne är innanför skärmen
 	return false;
 }
 
-bool OutofBounds(golf_ball_position &boll,float atX,float atY)
+bool OutofBounds(GolfBall &Ball,float atX,float atY)
 {
 	bool out=false;
-	while(boll.x <= 0 || boll.x >= bredd*50-1 || boll.y<=0 || boll.y >= hojd*50-1) // sätter den till kanten
+	while(Ball.getX() <= 0 || Ball.getX() >= bredd*50-1 || Ball.getY()<=0 || Ball.getY() >= hojd*50-1) // sätter den till kanten
 	{
-		boll.x -=atX;
-		boll.y -=atY;
+		//boll.x -=atX;
+		Ball.setX(Ball.getX() - atX);
+		//boll.y -=atY;
+		Ball.setY(Ball.getY() - atY);
 		out=true;
 	}
 		
 	if(out==true)	//gör så att den får 2 extra värden
 	{
-		int bx=(int)boll.x/50 , by=(int)boll.y/50;		
+		int bx=(int)Ball.getX()/50 , by=(int)Ball.getY()/50;		
 
 		while(( yta[bx][by]%50==2) || (yta[bx][by]%50>=4 && yta[bx][by]%50<=8))
 		{
-			boll.x -=atX;
-			boll.y -=atY;			
+			//boll.x -=atX;
+			Ball.setX(Ball.getX() - atX);
+			//boll.y -=atY;
+			Ball.setY(Ball.getY() - atY);
 
-			bx=(int)boll.x/50;
-			by=(int)boll.y/50;
-			
+			bx=(int)Ball.getX()/50;
+			by=(int)Ball.getY()/50;
 		}
 
-		boll.x -=atX*2;
-		boll.y -=atY*2;
+		//boll.x -=atX*2;
+		Ball.setX(Ball.getX() - (atX*2));
+		//boll.y -=atY*2;
+		Ball.setY(Ball.getY() - (atY*2));
 		
 		return false;
 	}
