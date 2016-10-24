@@ -49,7 +49,7 @@ public:
 	float setX( float iX );
 	float setY( float iY );
 	float setDistance( float iDistance );
-	float setCurrentHeight( iCurrentHeight );
+	float setCurrentHeight( float iCurrentHeight );
 };
 
 struct GolfClub
