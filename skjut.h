@@ -39,17 +39,17 @@ public:
 	float currentHeight;
 	GolfBall() : currentHeight(0) {};
 	
-	float getHeight();
-	float getX();
-	float getY();
-	float getDistance();
-	float getCurrentHeight();
+	float getHeight() { return height; };
+	float getX() { return x; };
+	float getY() { return y; };
+	float getDistance() { return distance; };
+	float getCurrentHeight() { return currentHeight; };
 	
-	float setHeight(float iHeight );
-	float setX( float iX );
-	float setY( float iY );
-	float setDistance( float iDistance );
-	float setCurrentHeight( float iCurrentHeight );
+	float setHeight(float iHeight ) { height = iHeight; };
+	float setX( float iX ) { x = iX; };
+	float setY( float iY ) { y= iY; };
+	float setDistance( float iDistance ) { distance = iDistance; };
+	float setCurrentHeight( float iCurrentHeight ) { currentHeight = iCurrentHeight; };
 };
 
 struct GolfClub
