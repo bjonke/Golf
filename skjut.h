@@ -37,6 +37,11 @@ class GolfBall
 	float distance;
 	float currentHeight;
 	GolfBall() : currentHeight(0) {};
+	float getHeight();
+	float getX();
+	float getY();
+	float getDistance();
+	float getCurrentHeight();
 };
 
 struct GolfClub
