@@ -28,6 +28,15 @@ struct golf_ball_position
 	golf_ball_position() : current_height(0) {}
 };
 
+class GolfBall
+{
+	float x,y;
+	float height;
+	float distance;
+	float currentHeight;
+	GolfBall() : currentHeight(0) {};
+};
+
 struct GolfClub
 {
 	float height;
@@ -36,11 +45,6 @@ struct GolfClub
 	GolfClub(float height,float distance){this->height= height, this->distance=distance;}
 };
 
-/**
-* This method will be used for checking who is playing.
-* @author RISK
-* @date 2012-07-27
-*/
 struct IsPlaying
 {
 	int x;
@@ -55,72 +59,13 @@ struct IsPlaying
 	IsPlaying(){BallInHole=false; BallLanded=false; score=0;}
 };
 
-/**
-* This method will be used for hitting the golf ball. OLD
-* @author RISK
-* @date 2012-07-27
-*/
 void hitBoll(GolfClub klubba,golf_ball_position &boll);
-
-/**
-* This method will be used for Shooting the golf ball. OLD
-* @author RISK
-* @date 2012-07-27
-*/
 bool Skjut(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);
-
-/**
-* This method will be used for checking the direction.
-* @author RISK
-* @date 2012-07-27
-*/
 Direction CompPosX(float bredd,float positiong);
-
-/**
-* This method will be used for checking the direction.
-* @author RISK
-* @date 2012-07-27
-*/
 Direction CompPosY(float hojd,float positiong);
-
-/**
-* This method will be used for checking XY.
-* @author RISK
-* @date 2012-07-27
-*/
 bool CheckXY(float X,float Y);
-
-/**
-* This method will be used for checking if the golf ball is out of bounds.
-* @author RISK
-* @date 2012-07-27
-*/
 bool OutofBounds(golf_ball_position &boll,float tempX,float tempY);
-
-/**
-* This method will be used for checking if the golf ball is in the terrain.
-* @author RISK
-* @date 2012-07-27
-*/
 bool InTerrain(IsPlaying &p);
-
-/**
-* This method will be used for checking if the golf ball is in the hole.
-* @author RISK
-* @date 2012-07-27
-*/
 void InGoal(IsPlaying & play);
-
-/**
-* This method will be used for hitting the ball with a specific golf club.
-* @author RISK
-* @date 2012-07-27
-*/
 void HitBall(GolfClub klubba,golf_ball_position &boll);
-
-/**
-* This method will be used for making the golf ball fly away after hitting it.
-* @author RISK
-* @date 2012-07-27
-*/
 bool Fire(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);
