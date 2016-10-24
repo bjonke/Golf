@@ -32,6 +32,7 @@ struct golf_ball_position
 
 class GolfBall
 {
+public:
 	float x,y;
 	float height;
 	float distance;
