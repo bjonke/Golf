@@ -17,6 +17,7 @@ struct Pos
 	float y;
 };
 
+/*
 struct golf_ball_position
 {
 	Pos Position;
@@ -27,6 +28,7 @@ struct golf_ball_position
 	float current_height;
 	golf_ball_position() : current_height(0) {}
 };
+*/
 
 class GolfBall
 {
@@ -60,12 +62,28 @@ struct IsPlaying
 };
 
 void hitBoll(GolfClub klubba,golf_ball_position &boll);
-bool Skjut(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);
+// Old function with golf_ball_position replaced
+//bool Skjut(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);
+
+bool Skjut(IsPlaying &play, GolfBall &Ball ,Pos &Windpos,float &atX,float &atY,bool &ground);
+
 Direction CompPosX(float bredd,float positiong);
 Direction CompPosY(float hojd,float positiong);
 bool CheckXY(float X,float Y);
-bool OutofBounds(golf_ball_position &boll,float tempX,float tempY);
+// Old function with golf_ball_position replaced
+//bool OutofBounds(golf_ball_position &boll,float tempX,float tempY);
+
+bool OutofBounds(GolfBall &Ball,float tempX,float tempY);
+
 bool InTerrain(IsPlaying &p);
 void InGoal(IsPlaying & play);
-void HitBall(GolfClub klubba,golf_ball_position &boll);
-bool Fire(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);
+
+// Old Function where golf_ball_position replaced
+//void HitBall(GolfClub klubba,golf_ball_position &boll);
+
+void HitBall(GolfClub klubba,GolfBall &Ball);
+
+// Old function where golf_ball_position replaced
+//bool Fire(IsPlaying &play, golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground);
+
+bool Fire(IsPlaying &play, GolfBall &Ball, Pos &Windpos,float &atX,float &atY,bool &ground);
