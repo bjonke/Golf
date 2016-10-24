@@ -6,48 +6,50 @@ extern int **yta;
 using namespace std;
 
 // Replacement function for Skjut and should be added to the header file later
-bool Shoot(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,float &atY,bool &ground)
+bool Shoot(IsPlaying &play, GolfBall &Ball, Pos &Windpos, float &atX, float &atY, bool &ground)
 {
-	boll.current_height += boll.height;
-	if(boll.current_height > 0)
+	//boll.current_height += boll.height;
+	Ball.setCurrentHeight( Ball.getCurrentHeight() + Ball.getHeight() );
+	
+	if(Ball.getCurrentHeight() > 0)
 	{
-		if(yta[(int)boll.x / 50][(int)boll.y / 50] == 4)
+		if(yta[(int)Ball.getX() / 50][(int)Ball.getY() / 50] == 4)
 		{
-			int CenterX = (int)(boll.x / 50 )*50+25;
-			int CenterY = (int)(boll.y / 50 )*50+17;
+			int CenterX = (int)(Ball.getX() / 50 )*50+25;
+			int CenterY = (int)(Ball.getY() / 50 )*50+17;
 			static int CX=-1,CY=-1;
 			
 			// What the BLIP! is this?
 			bool tempbool=false;
 
-			float tempX = boll.x-atX,tempY = boll.y - atY;
+			float tempX = Ball.getX()-atX,tempY = Ball.getY() - atY;
 			float malLangd = sqrtf(powf(CenterX - tempX,2.0) + powf(CenterY - tempY,2.0));
 			float bollLangd;
 			
-			if(boll.distance>malLangd)
+			if(Ball.getDistance() > malLangd)
 			{
 				bollLangd=malLangd;
 			}
 			else
 			{
-				bollLangd=boll.distance;
+				bollLangd=Ball.getDistance();
 			}
 
 			tempX+=atX*bollLangd;
 			tempY+=atY*bollLangd;
 
 			if(sqrtf(powf((tempX - CenterX),2.0) + powf((tempY - CenterY),2.0)) < 15 && (CX!=CenterX || 
-						CY!=CenterY) && boll.current_height < 300) //Kollar om den rör träd
+						CY!=CenterY) && Ball.getCurrentHeight() < 300) //Kollar om den rör träd
 			{
-				atX = (atX*boll.distance + Windpos.x) / (boll.distance);
-				atY = (atY*boll.distance + Windpos.y) / (boll.distance);
+				atX = (atX*Ball.getDistance() + Windpos.x) / Ball.getDistance();
+				atY = (atY*Ball.getDistance() + Windpos.y) / Ball.getDistance();
 				Windpos.x = 0;
 				Windpos.y = 0;
-				if(boll.height > 0)
+				if(Ball.getHeight() > 0)
 				{
-					boll.height = 0;
+					Ball.setHeight(0)
 				}
-				boll.distance /= 2;
+				Ball.setDistance( Ball.getDistance() / 2 );
 
 				CX = CenterX;
 				CY = CenterY;
@@ -76,26 +78,29 @@ bool Shoot(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,floa
 			}		
 		}
 
-		boll.height-=0.1f;	
+		//boll.height-=0.1f;
+		Ball.setHeight( Ball.getHeight() - 0.1f );
 		return true;
 	}
 
-	boll.current_height=0;
+	//boll.current_height=0;
+	Ball.setCurrentHeight(0);
 
-	if(ground)	//ifall den nått marken så sätts vinkeln
+	if(ground)	// If ball reached the ground then set the angle
 	{
-		boll.distance*=0.7;
+		Ball.setDistance(Ball.getDistance() * 0.7 );
+		//boll.distance*=0.7;
 		//if(Windpos.x!=0 )
-		atX= (atX*boll.distance + Windpos.x)/(boll.distance);
+		atX= (atX*Ball.getDistance() + Windpos.x) / Ball.getDistance();
 		//if(Windpos.y!=0) 
-		atY= (atY*boll.distance + Windpos.y)/(boll.distance);
+		atY= (atY*Ball.getDistance() + Windpos.y) / Ball.getDistance();
 
 		Windpos.x=0;
 		Windpos.y=0;
 		ground=false;
 	}	
 	
-	int var= yta[(int)boll.x/50][(int)boll.y/50]%50; //var bollen är
+	int var= yta[(int)Ball.getX()/50][(int)Ball.getY()/50]%50; //var bollen är
 
 	switch(var)
 	{
@@ -103,13 +108,16 @@ bool Shoot(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,floa
 			InGoal(play);
 			break;
 		case 1:
-			boll.distance-=0.1;
+			Ball.setDistance( Ball.getDistance() - 0.1f );
+			//boll.distance-=0.1;
 			break;
 		case 2:
 		case 5:
 		case 6:
 		case 7: 
-		case 8: boll.distance=0;
+		case 8: 
+			Ball.setDistance(0);
+			//boll.distance=0;
 			snd.Water();
 			break;
 		case 3:
@@ -117,15 +125,17 @@ bool Shoot(IsPlaying &play,golf_ball_position &boll,Pos &Windpos,float &atX,floa
 		case 10:
 		case 11:
 		case 12:
-			boll.distance-=0.5;
+			Ball.setDistance(Ball.getDistance() - 0.5);
+			//boll.distance-=0.5;
 			break;
 		case 4:
 			InTerrain(play);
-			boll.distance=0;
+			Ball.setDistance(0);
+			//boll.distance=0;
 			break;
 		}
 		
-		if(boll.distance>0)
+		if(Ball.getDistance() > 0)
 		{
 			return true;
 		}
