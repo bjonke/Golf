@@ -52,14 +52,6 @@ public:
 	float setCurrentHeight( float iCurrentHeight ) { currentHeight = iCurrentHeight; };
 };
 
-struct GolfClub
-{
-	float height;
-	float distance;
-	GolfClub() {}
-	GolfClub(float height,float distance){this->height= height, this->distance=distance;}
-};
-
 struct IsPlaying
 {
 	int x;
