@@ -8,9 +8,8 @@
 
 //using namespace std;
 
-
 #define GOLFCOURT_HOLE 9
-
+#define PLAYER = 4
 Players players;
 IsPlaying isplaying[4];
 //int br[9],ho[9];
@@ -21,8 +20,8 @@ int ActiveGolfCourse = 0;
 //int mapnow=0;
 
 int main(int, char**)
-{	
-	cout << "Randomizing things..." << endl;
+{
+	SDL_Log( "Randomizing data..." );
 	srand((unsigned)time(0));
 
 	//InitVideo();
@@ -30,12 +29,13 @@ int main(int, char**)
 	// Initializes the video subsystem
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) 
 	{
-		cerr << "Unable to init SDL: " << SDL_GetError() << endl;
+		//cerr << "Unable to init SDL: " << SDL_GetError() << endl;
+		SDL_Log( "Unable to init, SDL Error: %s\n", SDL_GetError() );
 		exit(1);
 	}
 
 	char GolfCourtFile[] = "golfcourts/level1";
-	vector<vector<int> > array2D;
+	stdd::vector<std::vector<int> > array2D;
 
 	// Set up sizes. (HEIGHT x WIDTH)
 	array2D.resize(90);
@@ -87,9 +87,10 @@ int main(int, char**)
 
 	UseWind(bo.FirstShot,windPos,WPos);	
 
-	for(int i=0; i<4; i++)
+	for(int playerID=0; playerID < PLAYERS; playerID++)
 	{
-		isplaying[i].ball=GolfBallPosition[ActiveGolfCourse];		
+		//isplaying[playerID].ball=GolfBallPosition[ActiveGolfCourse];
+		isplaying[playerID].Ball.setPosition(GolfBallPosition[ActiveGolfCourse]);
 	}
 	
 	while(!bo.Done)
