@@ -10,6 +10,9 @@
 
 #define GOLFCOURT_HOLE 9
 #define PLAYER = 4
+
+bool GameRunning = true;
+
 Players players;
 IsPlaying isplaying[4];
 //int br[9],ho[9];
@@ -93,7 +96,7 @@ int main(int, char**)
 		isplaying[playerID].Ball.setPosition(GolfBallPosition[ActiveGolfCourse]);
 	}
 	
-	while(!bo.Done)
+	while(!GameRunning) // bo.Done
 	{
 		while(!players.picked)
 		{
