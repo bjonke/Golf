@@ -1,5 +1,5 @@
-#ifndef PLAYERINPUT
-#define PLAYERINPUT
+#ifndef PLAYERINPUT_H
+#define PLAYERINPUT_H
 
 #include "Functions.h"
 #include "Players.h"
