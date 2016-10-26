@@ -233,39 +233,30 @@ void BreddHojd(golf_ball_position boll)
 	}
 }
 
+void Loadhighscore()
+{
+	ifstream HighscoreFile("data/highscore.txt");
+	// Write the highscore data from file to variable containing both name and score of
+	// higscore taker.
+	// Example code for reading file
+	/*
+	if(HighscoreFile)
+	{
+		for(int i=0; i<10 && HighscoreFile.peek() !=EOF; i++)
+		{
+			HighscoreFile >> namn[i] >> score[i];
+		}
+		HighscoreFile.close();
+	}
+	*/
+	HighsscoreFile.close();
+};
+
+// Change name to show its a draw function like DrawHighscore
 void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 {
-	ifstream HighscoreFile("Highscore.txt");
-	char Name[11][20];
-	int Score[11];
-	surf.HighScoreSurface = SDL_LoadBMP("gfx/highscore.bmp");
-	for(int i=0; i<10; i++)
-	{
-		strcpy(Name[i],"NOT SET");
-		Score[i]=999;
-	}
-	
-
-	ifstream infil("highscore.txt");	
-	char namn[11][20];
-	int score[11];
-	surf.HighScoreSurface = SDL_LoadBMP("gfx/highscore.bmp");
-	//SDL_Surface *hscore = SDL_LoadBMP("gfx/highscore.bmp");
-	
-	for(int i=0; i<10; i++)
-	{
-		strcpy(namn[i],"unnamed");
-		score[i]=999;
-	}
-	
-	if(infil)
-	{
-		for(int i=0; i<10 && infil.peek() !=EOF; i++)
-		{
-			infil >> namn[i] >> score[i];
-		}
-		infil.close();
-	}
+	// Load a background for highscore list
+	// Doing some sort of sorting on the highscore takers, should be moved or removed	
 	if(play.finished)
 	{
 		for(int i=0; i<play.players; ++i)
@@ -286,19 +277,17 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 					swap(score[j],score[j+1]);
 				}
 				else
-                {
+                		{
 					finished_sorting=true;
-                }
+                		}
 			}
 		}
 	}
 
-
-
 	int x,y;
-	bool klar=false;
+	bool HighscoreRendering = true;
 
-	while(!klar)
+	while(HighscoreRendering)
 	{
 		SDL_GetMouseState(&x,&y);
 		SDL_Event event;
@@ -307,7 +296,9 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 			if(event.type == SDL_MOUSEBUTTONUP)
 			{
 				if(x>338 && y>492 && x<468 && y< 552)
-					klar=true;
+				{
+					HighscoreRendering = false;
+				}
 			}
 		}
 		
@@ -317,6 +308,7 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 		DrawIMGAlpha(start,337,491,133,64,437,491,255,true);
 		DrawIMGAlpha(DSurface.HighScoreSurface,200,40,420,41,0,0,0,false);
 		
+		// Drawing the highscore text, should be replaced with something better
 		char chScore[20];
 		for(int i=0; i < 10; ++i)
 		{			
@@ -324,17 +316,20 @@ void Highscore(SDL_Surface* start,IsPlaying isp[],Players &play)
 			drawstring(260,110+30*i,namn[i]);
 			drawstring(460,110+30*i,chScore);
 		}
-		
-		
-						//start=true;
+
 		SDL_Flip(Dsurface.ScreenSurface);
 	}
+
+	// Writing the highscore back to file sorted, this is completely unecessary if you sort
+	// the highscore taker before writing them to file in a SaveHighScoreToFile function
+	/*
 	ofstream offil("highscore.txt");
 	for(int i=0; i<10; i++)
 	{
 		offil << namn[i] << " " << score[i] << endl;
 	}
 	offil.close();
+	*/
 	SDL_FreeSurface(DSurface.HighScoreSurface);
 }
 
@@ -356,8 +351,9 @@ void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying
 			if(event.type == SDL_MOUSEBUTTONUP)
 			{
 				if(x>331 && y>208 && x<457 && y< 243) // Continue
+				{
 					done=true;
-				
+				}				
 				else if(x>331 && y>208+y1 && x<457 && y< 243+y1) //New Game
 				{
 					done=true;
@@ -365,10 +361,8 @@ void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying
 					{
 						//players= Players();
 						isplaying[i].BallInHole=false;
-						
 					}
 					players= Players();
-					
 				}
 
 				else if(x>331 && y>208+y1*2 && x<457 && y< 243+y1*2) //HighScore
@@ -384,10 +378,8 @@ void EscMeny(SDL_Surface *init, Bools &bo, Players &players, IsPlaying isplaying
 					bo.Done=true;
 					
 				}
-			}
-			
+			}	
 		}
-	
 		SDL_Flip(surf.ScreenSurface);		
 	}
 	SDL_FreeSurface(img);
