@@ -45,37 +45,6 @@ public:
 	~DrawingSurface(){ std::cout << "DrawingSurface destruction..." << std::endl; };
 };
 
-struct Bools
-{
-	bool FireGolfBall;
-	float Value;
-	bool SetValue;
-	bool Done;
-	bool FirstShot;
-	bool PickGolfClub;
-	bool Ground;
-	bool Power;
-	bool RMove;
-	bool MouseRightDown;
-	bool MouseLeftDown;
-	bool MouseDown;
-	
-	//bool mousedown;
-	//bool mouseRdown;
-	//bool skjut;
-	//float value;
-	//bool setvalue;
-	//bool done; 	
-
-	//bool firstshot;
-	//bool pickClub;
-	//bool ground;
-	//bool power;
-	//bool Rmove;
-
-	Bools();
-};
-
 extern DrawingSurface DrawSurface;
 
 // Replacing the struct variables in Bools
@@ -87,6 +56,7 @@ extern bool PIckGolfClub;
 extern bool Ground;
 extern bool Power;
 extern bool RMove;
+extern bool Done;
 extern bool MouseRightDown;
 extern bool MouseLeftDown;
 extern bool MouseDown;
@@ -97,7 +67,7 @@ extern float bredd1;
 extern int bredd;
 extern int hojd;
 
-extern Surf surf;
+//extern Surf surf;
 extern Sound snd;
 extern int **yta;
 extern int ***tyta;
