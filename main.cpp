@@ -146,9 +146,9 @@ int main(int, char**)
 			for(int j=1; j<17; ++j) //ritar ut allt
 			{
 				if(bo.RMove)
-					DrawIMGAlpha(surf.ImageSurface, i*50-50-(int)RWidth%50, j*50-50-(int)RHeight%50, 50, 50,(((50+yta[i-1+((int)RWidth/50)][j-1+(int)RHeight/50])/50)*50-50), (yta[i-1+(int)RWidth/50][j-1+(int)RHeight/50]%50)*50-50,0,false);
+					DrawIMGAlpha(DSurface.ImageSurface, i*50-50-(int)RWidth%50, j*50-50-(int)RHeight%50, 50, 50,(((50+yta[i-1+((int)RWidth/50)][j-1+(int)RHeight/50])/50)*50-50), (yta[i-1+(int)RWidth/50][j-1+(int)RHeight/50]%50)*50-50,0,false);
 				else
-					DrawIMGAlpha(surf.ImageSurface, i*50-50-(int)bredd1%50, j*50-50-(int)hojd1%50, 50, 50,(((50+yta[i-1+((int)bredd1/50)][j-1+(int)hojd1/50])/50)*50-50), (yta[i-1+(int)bredd1/50][j-1+(int)hojd1/50]%50)*50-50,0,false);
+					DrawIMGAlpha(DSurface.ImageSurface, i*50-50-(int)bredd1%50, j*50-50-(int)hojd1%50, 50, 50,(((50+yta[i-1+((int)bredd1/50)][j-1+(int)hojd1/50])/50)*50-50), (yta[i-1+(int)bredd1/50][j-1+(int)hojd1/50]%50)*50-50,0,false);
 			}		
 		
 		if(bo.MouseRightDown)
@@ -187,7 +187,7 @@ int main(int, char**)
 		if(bo.FireGolfBall==false && bo.PickGolfClub && bo.RMove==false)
 		{
 			//Draws golf clubs
-			DrawIMGAlpha( surf.GolfImageSurface, 640, 10, 153, 278, 1, 1,0,false);
+			DrawIMGAlpha( DSurface.GolfImageSurface, 640, 10, 153, 278, 1, 1,0,false);
 		}
 		Matare(isplaying[isp].ball);
 		if(bo.PickGolfClub==false && bo.MouseDown && bo.FireGolfBall==false)
