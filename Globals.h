@@ -76,6 +76,8 @@ struct Bools
 	Bools();
 };
 
+extern DrawingSurface DrawSurface;
+
 // Replacing the struct variables in Bools
 extern bool FireGolfBall;
 extern float Value;
