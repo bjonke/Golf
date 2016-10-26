@@ -45,36 +45,6 @@ public:
 	~DrawingSurface(){ std::cout << "DrawingSurface destruction..." << std::endl; };
 };
 
-struct Surf
-{
-	Surf();
-	~Surf();
-
-	//SDL_Surface* screen;
-	//SDL_Surface* image;
-	//SDL_Surface* golfimage;
-	//SDL_Surface* initPlayer;
-	//SDL_Surface* matare;
-	//SDL_Surface *bird;
-	//SDL_Surface *golfer;
-	//SDL_Surface* varde;
-	//SDL_Surface* vind;
-	//SDL_Surface *gFont;
-	//SDL_Surface *hscore;
-
-	SDL_Surface* ScreenSurface;
-	SDL_Surface* ImageSurface;
-	SDL_Surface* GolfImageSurface;
-	SDL_Surface* InitPlayerSurface;
-	SDL_Surface* MeterSurface;
-	SDL_Surface* BirdSurface;
-	SDL_Surface* GolferSurface;
-	SDL_Surface* ValueSurface;
-	SDL_Surface* WindSurface;
-	SDL_Surface* FontSurface;
-	SDL_Surface* HighScoreSurface;
-};
-
 struct Bools
 {
 	bool FireGolfBall;
