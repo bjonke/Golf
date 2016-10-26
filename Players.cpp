@@ -19,7 +19,7 @@ Players::Players()
 
 void Players::PickPlayers()
 {
-	DrawIMGAlpha(surf.InitPlayerSurface,0,0,800,600,0,0,0,false);
+	DrawIMGAlpha(DSurface.InitPlayerSurface,0,0,800,600,0,0,0,false);
 	/*
 	players.picked=Events(surf.initPlayer,players);				
 	SDL_Flip(surf.screen);	
