@@ -16,7 +16,7 @@ extern int ActiveGolfCourse;
 void PickPlayers()
 {
 	DrawIMGAlpha(surf.InitPlayerSurface,0,0,SCREEN_WIDTH,SCREEN_HEIGHT,0,0,0,false);
-	players.picked=Events(surf.InitPlayerSurface,players);				
+	players.picked=Events(DSurface.InitPlayerSurface,players);				
 	SDL_Flip(DSurface.ScreenSurface);
 	
 	if(players.picked)
