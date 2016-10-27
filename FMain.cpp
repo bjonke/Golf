@@ -167,7 +167,9 @@ void MainEvents(float &Rhojd,float &Rbredd,int x2,int y2,GolfClub &klubb,GolfClu
 			}
 
 			if( event.button.button == SDL_BUTTON_RIGHT && MouseRightDown == true)
+			{
 				MouseRightDown=false;
+			}
 			break;
 
 			case SDL_KEYDOWN:	
@@ -290,7 +292,7 @@ void FireGolfBall(bool &set,int &x2,int &y2,int &isp,GolfClub &golfclub, float &
 	
 	if(isplaying[isp].ball.height>0)
 	{
-			UseWind(FirstShot,windPos,WPos);
+		UseWind(FirstShot,windPos,WPos);
 	}
 	
 	Direction x=CompPosX(bredd1,isplaying[isp].ball.x+tempX+windPos.x);
@@ -416,7 +418,6 @@ void EventHandler(float &RHeight,float &RWidth,int x2,int y2,GolfClub &golfclub,
 					break;
 
 			case SDL_KEYDOWN:
-				
 				switch(event.key.keysym.sym)
 				{
 				
