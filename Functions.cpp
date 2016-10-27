@@ -20,9 +20,13 @@ void WindEffect(float &x,float &y,float &max)
 	float speed;
 
 	if( x==0 || y==0)
+	{
 		speed=1;	//ifall bara en har vinkel
+	}
 	else
+	{
 		speed=0.707;  // ifall både x och y har vinkel
+	}
 	max=((power+5)/10.0)*speed;	
 }
 
@@ -36,9 +40,13 @@ void Windrandom(float &x,float &y,float &max)
 	float speed;
 
 	if( x==0 || y==0)
+	{
 		speed=1;	//ifall bara en har vinkel
+	}
 	else
+	{
 		speed=0.707;  // ifall både x och y har vinkel
+	}
 	max=((power+5)/10.0)*speed; 
 }
 
@@ -55,9 +63,13 @@ void UseWind(bool &startMove, Pos &boll, Pos &WPos)
 	else if(max> abs((int)x) || max > abs((int)y))	//Gör så bollen ökar en bit åt gången
 	{
 		if(x!=0)
-		boll.x +=x*(max/60.0f);
+		{
+			boll.x +=x*(max/60.0f);
+		}
 		if(y!=0)
-		boll.y +=y*(max/60.0f);
+		{
+			boll.y +=y*(max/60.0f);
+		}
 	}
 	WPos.x=x*max;
 	WPos.y=y*max;
@@ -191,7 +203,7 @@ void drawcircle(int x, int y, int r, int c)	 //Ritar bollen
 			((unsigned int*)surf.ScreenSurface->pixels)[ofs + j] = 0xFFFFFFFF;
       		}
     	}
-  	}
+  }
 }
 
 //Bollpos parameter
@@ -223,10 +235,14 @@ float Power(bool &first) //Sägger kraften på slaget
 	power+=0.03;	
 
 	if(power >= 2.0f)
-		first=true;	
+	{
+		first=true;
+	}
 
 	if(power<1.0f)
+	{
 		return power;
+	}
 
 	return 2.0f-power;
 }
@@ -267,8 +283,7 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 	}
 
 	else if(WindPos.x!=0 && WindPos.y==0)
-	{
-		
+	{	
 		if(WindPos.y>0)
 		{
 			tempX=Tbredd;
@@ -322,8 +337,7 @@ void viewWind(Pos &WindPos,golf_ball_position &boll) //Ritar vindpekare
 		if(i==0)
 		{	 
 			j++;
-			DrawIMGAlpha(surf.WindSurface, 38+8*j, 85, 8, 22, 8*10, 115,trans,true);
-			
+			DrawIMGAlpha(surf.WindSurface, 38+8*j, 85, 8, 22, 8*10, 115,trans,true);		
 		}
 		j++;
 	}
@@ -352,7 +366,9 @@ void viewBird() //Ritar fågel
 		Birds_pos_x = 0;
 		Birds_pos_y = rand()%600;
 		if( rand()% 50 > 25 )
-		flying = true;
+		{
+			flying = true;
+		}
 	}
 	else
 	{
@@ -361,31 +377,6 @@ void viewBird() //Ritar fågel
 		Birds_pos_y % 2 == 0 ? Birds_pos_y += rand()%2 : Birds_pos_y -=  rand()%2;
 		DrawIMGAlpha(surf.BirdSurface,Birds_pos_x,Birds_pos_y,80,150,0,0,0,false);
 	}
-/*
-	if(flying==false)
-	{
-		birdposY= 320;		
-		hoger = rand()%2;		
-		flying=true;
-		hoger==0 ? birdposX=0 : birdposX = bredd*50;
-	}
-	hoger==0 ? birdposX+=2 : birdposX-=2;
-
-	float bx=-(bredd1+400-birdposX); 
-	float by=-(hojd1+300-birdposY);
-
-	if(bx > -255 && bx<200 && by > -205 && by < 150)
-	{
-		int ani= abs( (int)birdposX % 200 - (int)birdposX % 100 - (int)birdposX % 100);
-		DrawIMGAlpha(surf.bird,400+2*bx,300+2*by,80,100,105*(ani/26)+hoger*420,0,0,false);
-	}
-
-	if(hoger==0 && birdposX>bredd*50)
-		flying=false;
-	else if(hoger==1 && birdposX < 0)
-		flying=false;
-		
-*/
 }
 
 void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
@@ -401,16 +392,24 @@ void animPlayer(float value) //Borttagen funktion som ritar en spelare som slår
 		if(vanster)
 		{
 			if(tempval-0.25f < val)
+			{
 				vanster=false;
+			}
 			else
+			{
 				tempval-=0.25f;
+			}
 		}
 		else
 		{
 			if(tempval+0.25f > value)
+			{
 				done=true;
+			}
 			else
+			{
 				tempval+=0.25f;
+			}
 		}
 		SDL_Delay(80);
 		SDL_Flip(surf.ScreenSurface);
